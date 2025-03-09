@@ -1,0 +1,11 @@
+@media (min-width: 376px) {
+  #bg-container {
+    height: calc(200px + (300 - 200) * ((100vw - 376px) / (1440 - 376)));
+  }
+}
+
+@media (min-width: 1440px) {
+  #bg-container {
+    height: 300px; /* Maximum height */
+  }
+}
