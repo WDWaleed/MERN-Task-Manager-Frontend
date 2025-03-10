@@ -28,7 +28,7 @@ export const TodoList = ({
         {filteredTodos.map((todo) => (
           <li key={todo._id}>
             <TodoItem
-              todoText={todo.text}
+              todoText={todo.name}
               id={todo._id}
               completed={todo.completed}
               toggleTodo={toggleTodo}

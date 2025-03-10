@@ -5,12 +5,10 @@ import { TodoForm } from "./TodoForm";
 import { TodoList } from "./TodoList";
 import config from "../config";
 
-export const TodoContainer = () => {
+export const TodoContainer = ({ isLoggedIn, isLoading, token }) => {
   const [todos, setTodos] = React.useState([]);
   const fetchTasks = async () => {
     try {
-      // await localStorage.removeItem("jwt");
-
       const response = await axios.get(`${config.baseURL}/api/v1/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -22,6 +20,7 @@ export const TodoContainer = () => {
       console.log("Error fetching tasks: ", error);
     }
   };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -30,19 +29,28 @@ export const TodoContainer = () => {
 
   const addTodo = async (newTodo) => {
     try {
-      const response = await axios.post(`${api}/api/v1/tasks`, {
-        text: newTodo,
-        completed: false,
-      });
-      const savedTodo = response.data.task;
-      setTodos([
-        ...todos,
+      const response = await axios.post(
+        `${config.baseURL}/api/v1/tasks`,
         {
-          _id: savedTodo._id,
-          text: savedTodo.text,
-          completed: savedTodo.completed,
+          name: newTodo,
         },
-      ]);
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log(response.data.task);
+      fetchTasks();
+      // const savedTodo = response.data.task;
+      // setTodos([
+      //   ...todos,
+      //   {
+      //     _id: savedTodo._id,
+      //     text: savedTodo.name,
+      //     completed: savedTodo.completed
+      //   },
+      // ]);
     } catch (error) {
       console.error("Error adding todo:", error);
     }
@@ -50,7 +58,11 @@ export const TodoContainer = () => {
 
   const removeTodo = async (id) => {
     try {
-      await axios.delete(`${api}/api/v1/tasks/${id}`);
+      await axios.delete(`${config.baseURL}/api/v1/tasks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchTasks();
     } catch (error) {
       console.log("There was an error deleting the task: ", error);
@@ -58,7 +70,7 @@ export const TodoContainer = () => {
   };
 
   const toggleTodo = async (id) => {
-    console.log(todos);
+    // console.log(todos);
     console.log("Toggling todo with id:", id);
     const todo = todos.find((todo) => todo._id === id);
     if (!todo) {
@@ -69,9 +81,19 @@ export const TodoContainer = () => {
     const updatedTodo = { ...todo, completed: !todo.completed };
 
     try {
-      const response = await axios.patch(`${api}/api/v1/tasks/${id}`, {
-        completed: updatedTodo.completed,
-      });
+      const response = await axios.patch(
+        `${config.baseURL}/api/v1/tasks/${id}`,
+        {
+          name: todo.name,
+          completed: !todo.completed,
+          createdBy: todo.createdBy,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       console.log("API response:", response.data);
 
@@ -82,11 +104,21 @@ export const TodoContainer = () => {
   };
 
   const clearCompleted = async () => {
-    const response = await axios.delete(`${api}/api/v1/tasks`);
-    console.log(response.data.message);
-    fetchTasks();
-    // setTodos(todos.filter((todo) => !todo.completed));
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/v1/tasks/clear`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      fetchTasks();
+    } catch (error) {
+      console.log("Error clearing completed tasks: ", error);
+    }
   };
+
   return (
     <section className="mx-auto w-full max-w-[545px] -translate-y-275 p-8">
       <TodoHead />

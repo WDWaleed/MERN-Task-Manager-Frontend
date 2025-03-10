@@ -35,7 +35,7 @@ const Register = ({ isLoggedIn, setIsLoggedIn }) => {
       setIsLoggedIn(true);
       navigate("/");
     } catch (err) {
-      setError(err.response.data.msg);
+      setError(err);
       setSuccess("");
     }
   };
