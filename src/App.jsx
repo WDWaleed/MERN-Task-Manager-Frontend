@@ -80,13 +80,22 @@ function App() {
           <Route
             path="/register"
             element={
-              <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+              <Register
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                setToken={setToken}
+              />
             }
           />
           <Route
             path="/login"
             element={
-              <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+              <Login
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                token={token}
+                setToken={setToken}
+              />
             }
           />
         </Routes>

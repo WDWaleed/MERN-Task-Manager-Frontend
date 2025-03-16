@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 
-const Register = ({ isLoggedIn, setIsLoggedIn }) => {
+const Register = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,7 +28,11 @@ const Register = ({ isLoggedIn, setIsLoggedIn }) => {
         `${config.baseURL}/api/v1/auth/register`,
         formData,
       );
+      console.log(response.data);
       localStorage.setItem("jwt", JSON.stringify(response.data));
+      const { token } = response.data;
+      setToken(token);
+
       setSuccess("Registration successful!");
       setError("");
 

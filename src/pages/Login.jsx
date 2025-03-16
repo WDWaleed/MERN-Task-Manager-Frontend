@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 
-const Login = () => {
+const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -26,8 +27,18 @@ const Login = () => {
         `${config.baseURL}/api/v1/auth/login`,
         formData,
       );
+      console.log(response.data);
+      localStorage.setItem("jwt", JSON.stringify(response.data));
+      const { token } = response.data;
+      setToken(token);
+
+      setIsLoggedIn(true);
+
       setSuccess("Login successful!");
       setError("");
+
+      navigate("/");
+
       // Handle successful login (e.g., save token, redirect)
     } catch (err) {
       setError("Login failed. Please try again.");
@@ -36,8 +47,8 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-dark-very-dark-blue flex min-h-screen items-center justify-center">
-      <div className="bg-dark-very-dark-desaturated-blue w-full max-w-md rounded-lg p-8 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-dark-very-dark-blue">
+      <div className="w-full max-w-md rounded-lg bg-dark-very-dark-desaturated-blue p-8 shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-bold text-white">
           Login
         </h2>
@@ -55,7 +66,7 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="bg-dark-very-dark-grayish-blue w-full rounded p-2 text-white focus:outline-none"
+              className="w-full rounded bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-none"
             />
           </div>
           <div className="mb-6">
@@ -69,12 +80,12 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="bg-dark-very-dark-grayish-blue w-full rounded p-2 text-white focus:outline-none"
+              className="w-full rounded bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-none"
             />
           </div>
           <button
             type="submit"
-            className="bg-bright-blue w-full rounded px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
+            className="w-full rounded bg-bright-blue px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
           >
             Login
           </button>

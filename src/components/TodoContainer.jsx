@@ -52,7 +52,7 @@ export const TodoContainer = ({ isLoggedIn, isLoading, token }) => {
       //   },
       // ]);
     } catch (error) {
-      console.error("Error adding todo:", error);
+      console.error("Error adding todo:", error.message);
     }
   };
 
