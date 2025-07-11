@@ -1,8 +1,52 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap')
+layer(base);
 
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+@import 'tailwindcss';
+
+@theme {
+  --background-image-Mobile-dark: url('/bg-mobile-dark.jpg');
+  --background-image-Mobile-light: url('/bg-mobile-light.jpg');
+  --background-image-Desktop-dark: url('/bg-desktop-dark.jpg');
+  --background-image-Desktop-light: url('/bg-desktop-light.jpg');
+
+  --color-bright-blue: hsl(220, 98%, 61%);
+  --color-light-very-light-gray: hsl(0, 0%, 98%);
+  --color-light-very-light-grayish-blue: hsl(236, 33%, 92%);
+  --color-light-grayish-blue: hsl(233, 11%, 84%);
+  --color-light-dark-grayish-blue: hsl(236, 9%, 61%);
+  --color-light-very-dark-grayish-blue: hsl(235, 19%, 35%);
+  --color-dark-very-dark-blue: hsl(235, 21%, 11%);
+  --color-dark-very-dark-desaturated-blue: hsl(235, 24%, 19%);
+  --color-dark-light-grayish-blue: hsl(234, 39%, 85%);
+  --color-dark-light-grayish-blue-hover: hsl(236, 33%, 92%);
+  --color-dark-dark-grayish-blue: hsl(234, 11%, 52%);
+  --color-dark-very-dark-grayish-blue: hsl(233, 14%, 35%);
+  --color-dark-very-dark-grayish-blue-2: hsl(237, 14%, 26%);
+
+  --spacing-275: 275px;
+
+  --tracking-10px: 10px;
+
+  --breakpoint-custom: 370px;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 body {
   @apply bg-dark-very-dark-blue;

@@ -6,7 +6,6 @@ export const TodoItem = ({
   todoText,
   completed,
   toggleTodo,
-  setTodos,
   removeTodo,
 }) => {
   const [xVisible, setXVisible] = useState(false);
@@ -17,16 +16,28 @@ export const TodoItem = ({
       onMouseEnter={() => setXVisible(true)}
       onMouseLeave={() => setXVisible(false)}
     >
+      {/* <span
+        className={`checkmark flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 ${
+          completed
+            ? "border-none bg-check-background"
+            : "border-dark-very-dark-grayish-blue-2"
+        }`}
+        onClick={() => toggleTodo(id)}
+      >
+        {completed ? <img src="/icon-check.svg" alt="Tick" /> : ""}
+      </span> */}
+
       <span
         className={`checkmark flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 ${
           completed
-            ? "border-none bg-checkBackground"
+            ? "border-none bg-[linear-gradient(hsl(192,100%,67%),hsl(280,87%,65%))]"
             : "border-dark-very-dark-grayish-blue-2"
-        } `}
+        }`}
         onClick={() => toggleTodo(id)}
       >
         {completed ? <img src="/icon-check.svg" alt="Tick" /> : ""}
       </span>
+
       <p
         className={` ${completed ? "text-dark-very-dark-grayish-blue line-through" : ""}`}
       >

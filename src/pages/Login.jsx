@@ -66,7 +66,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full rounded bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-none"
+              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
             />
           </div>
           <div className="mb-6">
@@ -80,12 +80,12 @@ const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full rounded bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-none"
+              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded bg-bright-blue px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
+            className="w-full rounded-sm bg-bright-blue px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
           >
             Login
           </button>

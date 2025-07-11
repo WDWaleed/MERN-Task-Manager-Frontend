@@ -26,7 +26,7 @@ export const TodoForm = ({ addTodo }) => {
           placeholder="Create a new todo..."
           value={todoInput}
           onChange={handleChange}
-          className="inline-block flex-grow rounded-md bg-dark-very-dark-desaturated-blue p-4 text-[18px] text-dark-light-grayish-blue focus:outline-none"
+          className="inline-block grow rounded-md bg-dark-very-dark-desaturated-blue p-4 text-[18px] text-dark-light-grayish-blue focus:outline-hidden"
         />
       </div>
     </form>

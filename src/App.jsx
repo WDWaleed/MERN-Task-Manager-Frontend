@@ -53,7 +53,11 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div className="m-auto w-20 text-2xl text-white">Loading...</div>;
+    return (
+      <div className="m-auto flex h-screen w-20 items-center justify-centernp text-2xl text-white">
+        Loading...
+      </div>
+    );
   }
 
   return (
