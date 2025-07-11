@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import config from "../config";
+import toast from "react-hot-toast";
+import { useAuthStore } from "../store/auth-store";
 
-const Register = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
+const Register = () => {
+  const register = useAuthStore((state) => state.register);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,35 +24,50 @@ const Register = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted!");
+    console.log("Form data:", formData);
+    if (
+      formData.name === "" ||
+      !formData.email === "" ||
+      !formData.password === ""
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        `${config.baseURL}/api/v1/auth/register`,
-        formData,
+      const data = await toast.promise(
+        register(formData.name, formData.email, formData.password),
+        {
+          loading: "Creating account...",
+          success: (data) => data.msg || "Registration successful!",
+          error: (err) => {
+            if (err.response) {
+              return (
+                err.response.data.msg ||
+                "Registration failed. Please try again."
+              );
+            } else if (err.request) {
+              return "Network error. Please check your connection.";
+            } else {
+              return "An unexpected error occurred.";
+            }
+          },
+        },
       );
-      console.log(response.data);
-      localStorage.setItem("jwt", JSON.stringify(response.data));
-      const { token } = response.data;
-      setToken(token);
 
-      setSuccess("Registration successful!");
-      setError("");
-
-      setIsLoggedIn(true);
       navigate("/");
     } catch (err) {
-      setError(err);
-      setSuccess("");
+      console.log("Registration failed:", err);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-dark-very-dark-blue">
-      <div className="w-full max-w-md rounded-lg bg-dark-very-dark-desaturated-blue p-8 shadow-lg">
+    <div className="bg-dark-very-dark-blue flex min-h-screen items-center justify-center">
+      <div className="bg-dark-very-dark-desaturated-blue w-full max-w-md rounded-lg p-8 shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-bold text-white">
           Register
         </h2>
-        {error && <p className="mb-4 text-red-500">{error}</p>}
-        {success && <p className="mb-4 text-green-500">{success}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="name" className="mb-2 block text-white">
@@ -64,7 +80,7 @@ const Register = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
+              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <div className="mb-4">
@@ -78,7 +94,7 @@ const Register = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
+              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <div className="mb-6">
@@ -92,12 +108,12 @@ const Register = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
+              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded-sm bg-bright-blue px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
+            className="bg-bright-blue w-full cursor-pointer rounded-sm px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
           >
             Register
           </button>

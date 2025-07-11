@@ -4,57 +4,28 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { BgContainer } from "./components/BgContainer";
-import { TodoContainer } from "./components/TodoContainer";
+import { useEffect } from "react";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import axios from "axios";
-import config from "./config";
+import Home from "./pages/Home";
+import Tasks from "./pages/Tasks";
+import NavBar from "./components/NavBar";
+import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "./store/auth-store";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState("");
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const initializeAuth = useAuthStore((state) => state.initializeAuth);
 
   // Authenticate the user on page loads
   useEffect(() => {
-    const authenticateUser = async () => {
-      const storedJwt = localStorage.getItem("jwt");
-      if (storedJwt) {
-        const parsedJwt = JSON.parse(storedJwt);
-        const token = parsedJwt.token;
-        setToken(token);
-
-        try {
-          const response = await axios.get(`${config.baseURL}/api/v1/tasks`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          if (response.status === 200) {
-            setIsLoggedIn(true);
-          }
-        } catch (error) {
-          console.error(
-            "Authentication failed:",
-            error.response ? error.response.data : error.message,
-          );
-          setIsLoggedIn(false);
-        }
-      } else {
-        console.log("No token found in local storage");
-        setIsLoggedIn(false);
-      }
-      setIsLoading(false);
-    };
-
-    authenticateUser();
+    initializeAuth();
   }, []);
 
   if (isLoading) {
     return (
-      <div className="m-auto flex h-screen w-20 items-center justify-centernp text-2xl text-white">
+      <div className="m-auto flex h-screen w-20 items-center justify-center text-2xl text-white">
         Loading...
       </div>
     );
@@ -62,45 +33,16 @@ function App() {
 
   return (
     <Router>
-      <main className="mx-auto w-full max-w-[1440px]">
+      <main className="relative mx-auto mt-18 w-full max-w-[1440px]">
+        <Toaster position="top-right" reverseOrder={false} />
+        <NavBar />
         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <>
-                  <BgContainer />
-                  <TodoContainer
-                    isLoggedIn={isLoggedIn}
-                    setIsLoggedIn={setIsLoggedIn}
-                    token={token}
-                  />
-                </>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <Register
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                setToken={setToken}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                token={token}
-                setToken={setToken}
-              />
-            }
+            path="/tasks"
+            element={isLoggedIn ? <Tasks /> : <Navigate to="/login" replace />}
           />
         </Routes>
       </main>

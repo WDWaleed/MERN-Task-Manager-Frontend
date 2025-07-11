@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import config from "../config";
+import { useAuthStore } from "../store/auth-store";
+import toast from "react-hot-toast";
 
-const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
+const Login = () => {
+  const login = useAuthStore((state) => state.login);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
+
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
@@ -22,33 +27,46 @@ const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted!"); // Add this to verify the function is called
+    console.log("Form data:", formData); // Verify formData has values
+    if (!formData.email || !formData.password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        `${config.baseURL}/api/v1/auth/login`,
-        formData,
-      );
-      console.log(response.data);
-      localStorage.setItem("jwt", JSON.stringify(response.data));
-      const { token } = response.data;
-      setToken(token);
+      await toast.promise(await login(formData.email, formData.password), {
+        loading: "Authenticating...",
+        success: (data) => data.msg || "Logged In!",
+        error: (err) => {
+          if (err.response) {
+            return (
+              err.response.data.msg ||
+              "Authentication failed. Please try again."
+            );
+          } else if (err.request) {
+            return "Network error. Please check your connection.";
+          } else {
+            return "An unexpected error occurred.";
+          }
+        },
+      });
 
-      setIsLoggedIn(true);
-
-      setSuccess("Login successful!");
-      setError("");
-
-      navigate("/");
-
-      // Handle successful login (e.g., save token, redirect)
+      navigate("/tasks");
     } catch (err) {
-      setError("Login failed. Please try again.");
-      setSuccess("");
+      if (err.response) {
+        toast.error(err.response.data.msg || "Login failed. Please try again.");
+      } else if (err.request) {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-dark-very-dark-blue">
-      <div className="w-full max-w-md rounded-lg bg-dark-very-dark-desaturated-blue p-8 shadow-lg">
+    <div className="bg-dark-very-dark-blue flex min-h-screen items-center justify-center">
+      <div className="bg-dark-very-dark-desaturated-blue w-full max-w-md rounded-lg p-8 shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-bold text-white">
           Login
         </h2>
@@ -66,7 +84,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
+              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <div className="mb-6">
@@ -80,12 +98,12 @@ const Login = ({ isLoggedIn, setIsLoggedIn, token, setToken }) => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full rounded-sm bg-dark-very-dark-grayish-blue p-2 text-white focus:outline-hidden"
+              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded-sm bg-bright-blue px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
+            className="bg-bright-blue w-full cursor-pointer rounded-sm px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
           >
             Login
           </button>

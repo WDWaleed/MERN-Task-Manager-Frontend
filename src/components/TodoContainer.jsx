@@ -3,9 +3,14 @@ import React, { useState, useEffect } from "react";
 import { TodoHead } from "./TodoHead";
 import { TodoForm } from "./TodoForm";
 import { TodoList } from "./TodoList";
-import config from "../config";
+import { useAuthStore } from "../store/auth-store";
 
-export const TodoContainer = ({ isLoggedIn, isLoading, token }) => {
+export const TodoContainer = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuthStore((state) => ({
+    isLoggedIn: state.isLoggedIn,
+    setIsLoggedIn: state.setIsLoggedIn,
+  }));
+
   const [todos, setTodos] = React.useState([]);
   const fetchTasks = async () => {
     try {
