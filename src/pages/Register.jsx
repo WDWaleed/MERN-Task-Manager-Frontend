@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/auth-store";
+import { useRegister } from "../hooks/useRegister";
 
 const Register = () => {
-  const register = useAuthStore((state) => state.register);
+  const registerMutation = useRegister();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,31 +36,7 @@ const Register = () => {
       return;
     }
 
-    try {
-      const data = await toast.promise(
-        register(formData.name, formData.email, formData.password),
-        {
-          loading: "Creating account...",
-          success: (data) => data.msg || "Registration successful!",
-          error: (err) => {
-            if (err.response) {
-              return (
-                err.response.data.msg ||
-                "Registration failed. Please try again."
-              );
-            } else if (err.request) {
-              return "Network error. Please check your connection.";
-            } else {
-              return "An unexpected error occurred.";
-            }
-          },
-        },
-      );
-
-      navigate("/");
-    } catch (err) {
-      console.log("Registration failed:", err);
-    }
+    registerMutation.mutate(formData);
   };
 
   return (
@@ -115,7 +92,7 @@ const Register = () => {
             type="submit"
             className="bg-bright-blue w-full cursor-pointer rounded-sm px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
           >
-            Register
+            {registerMutation.isLoading ? "Registering..." : "Register"}
           </button>
         </form>
         <p className="mt-4 text-center text-white">

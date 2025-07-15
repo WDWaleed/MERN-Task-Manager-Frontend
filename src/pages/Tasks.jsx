@@ -5,8 +5,9 @@ import { TodoContainer } from "../components/TodoContainer";
 const Tasks = () => {
   return (
     <>
-      <BgContainer />
-      <TodoContainer />
+      <h1 className="text-center text-2xl text-white">Dummy tasks page</h1>
+      {/* <BgContainer />
+      <TodoContainer /> */}
     </>
   );
 };
