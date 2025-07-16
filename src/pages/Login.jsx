@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/auth-store";
 import toast from "react-hot-toast";
+import { useLogin } from "../hooks/useLogin";
 
 const Login = () => {
-  const login = useAuthStore((state) => state.login);
+  const loginMutation = useLogin();
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
   const navigate = useNavigate();
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -27,41 +23,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted!"); // Add this to verify the function is called
-    console.log("Form data:", formData); // Verify formData has values
+    console.log("Form submitted!");
+    console.log("Form data:", formData);
     if (!formData.email || !formData.password) {
       toast.error("Please fill in all fields");
       return;
     }
 
-    try {
-      await toast.promise(await login(formData.email, formData.password), {
-        loading: "Authenticating...",
-        success: (data) => data.msg || "Logged In!",
-        error: (err) => {
-          if (err.response) {
-            return (
-              err.response.data.msg ||
-              "Authentication failed. Please try again."
-            );
-          } else if (err.request) {
-            return "Network error. Please check your connection.";
-          } else {
-            return "An unexpected error occurred.";
-          }
-        },
-      });
-
-      navigate("/tasks");
-    } catch (err) {
-      if (err.response) {
-        toast.error(err.response.data.msg || "Login failed. Please try again.");
-      } else if (err.request) {
-        toast.error("Network error. Please check your connection.");
-      } else {
-        toast.error("An unexpected error occurred.");
-      }
-    }
+    loginMutation.mutate(formData);
   };
 
   return (
@@ -70,8 +39,6 @@ const Login = () => {
         <h2 className="mb-6 text-center text-3xl font-bold text-white">
           Login
         </h2>
-        {error && <p className="mb-4 text-red-500">{error}</p>}
-        {success && <p className="mb-4 text-green-500">{success}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="mb-2 block text-white">
