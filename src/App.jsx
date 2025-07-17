@@ -70,7 +70,19 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              isLoading ? (
+                <LoadingSpinner />
+              ) : isLoggedIn ? (
+                <Tasks />
+              ) : (
+                <Login />
+              )
+            }
+          />
+
           <Route
             path="/tasks"
             element={isLoggedIn ? <Tasks /> : <Navigate to="/login" replace />}

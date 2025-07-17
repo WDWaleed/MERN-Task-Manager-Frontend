@@ -13,7 +13,7 @@ export const useRegister = () => {
     onSuccess: (data) => {
       setUser(data.user);
       toast.success("Registration successful!");
-      navigate("/verify-email");
+      navigate("/verify-email", { state: { authorized: true } });
     },
     onError: (error) => {
       toast.error(error?.msg || "Registration failed. Please try again.");

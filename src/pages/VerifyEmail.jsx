@@ -1,9 +1,18 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useVerifyEmail } from "../hooks/useVerifyEmail";
+import { useAuthStore } from "../store/auth-store";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 const VerifyEmail = () => {
   const verifyEmailMutation = useVerifyEmail();
   const inputRef = useRef([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = useAuthStore((state) => state.user);
+
+  if (!location.state?.authorized) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleInput = (e, index) => {
     if (e.target.value.length > 0 && index < inputRef.current.length - 1) {
@@ -33,6 +42,10 @@ const VerifyEmail = () => {
 
     verifyEmailMutation.mutate(otp);
   };
+
+  useEffect(() => {
+    user?.isAccountVerified && navigate("/");
+  }, [user]);
 
   return (
     <div className="bg-dark-very-dark-blue flex min-h-screen items-center justify-center">
