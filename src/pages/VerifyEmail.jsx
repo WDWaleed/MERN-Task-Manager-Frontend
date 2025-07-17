@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useVerifyEmail } from "../hooks/useVerifyEmail";
+import { useVerifyEmail } from "../hooks/authHooks/useVerifyEmail";
 import { useAuthStore } from "../store/auth-store";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 

@@ -4,32 +4,11 @@ import { TodoHead } from "./TodoHead";
 import { TodoForm } from "./TodoForm";
 import { TodoList } from "./TodoList";
 import { useAuthStore } from "../store/auth-store";
+import { useTasksStore } from "../store/tasks-store";
+import { useGetTasks } from "../hooks/taskHooks/useGetTasks";
+import { getTasks } from "../api/tasksApi";
 
 export const TodoContainer = () => {
-  const { isLoggedIn, setIsLoggedIn } = useAuthStore((state) => ({
-    isLoggedIn: state.isLoggedIn,
-    setIsLoggedIn: state.setIsLoggedIn,
-  }));
-
-  const [todos, setTodos] = React.useState([]);
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(`${config.baseURL}/api/v1/tasks`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data.tasks);
-      setTodos(response.data.tasks);
-    } catch (error) {
-      console.log("Error fetching tasks: ", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   const [currentSort, setCurrentSort] = useState("All");
 
   const addTodo = async (newTodo) => {
@@ -46,16 +25,7 @@ export const TodoContainer = () => {
         },
       );
       console.log(response.data.task);
-      fetchTasks();
-      // const savedTodo = response.data.task;
-      // setTodos([
-      //   ...todos,
-      //   {
-      //     _id: savedTodo._id,
-      //     text: savedTodo.name,
-      //     completed: savedTodo.completed
-      //   },
-      // ]);
+      getTasks();
     } catch (error) {
       console.error("Error adding todo:", error.message);
     }
@@ -68,45 +38,45 @@ export const TodoContainer = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      fetchTasks();
+      getTasks();
     } catch (error) {
       console.log("There was an error deleting the task: ", error);
     }
   };
 
-  const toggleTodo = async (id) => {
-    // console.log(todos);
-    console.log("Toggling todo with id:", id);
-    const todo = todos.find((todo) => todo._id === id);
-    if (!todo) {
-      console.error("Todo not found with id:", id);
-      return;
-    }
+  // const toggleTodo = async (id) => {
+  //   // console.log(todos);
+  //   console.log("Toggling todo with id:", id);
+  //   const todo = todos.find((todo) => todo._id === id);
+  //   if (!todo) {
+  //     console.error("Todo not found with id:", id);
+  //     return;
+  //   }
 
-    const updatedTodo = { ...todo, completed: !todo.completed };
+  //   const updatedTodo = { ...todo, completed: !todo.completed };
 
-    try {
-      const response = await axios.patch(
-        `${config.baseURL}/api/v1/tasks/${id}`,
-        {
-          name: todo.name,
-          completed: !todo.completed,
-          createdBy: todo.createdBy,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+  //   try {
+  //     const response = await axios.patch(
+  //       `${config.baseURL}/api/v1/tasks/${id}`,
+  //       {
+  //         name: todo.name,
+  //         completed: !todo.completed,
+  //         createdBy: todo.createdBy,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       },
+  //     );
 
-      console.log("API response:", response.data);
+  //     console.log("API response:", response.data);
 
-      fetchTasks();
-    } catch (error) {
-      console.log("Error updating todo:", error);
-    }
-  };
+  //     getTasks();
+  //   } catch (error) {
+  //     console.log("Error updating todo:", error);
+  //   }
+  // };
 
   const clearCompleted = async () => {
     try {
@@ -118,7 +88,7 @@ export const TodoContainer = () => {
           },
         },
       );
-      fetchTasks();
+      getTasks();
     } catch (error) {
       console.log("Error clearing completed tasks: ", error);
     }
@@ -129,10 +99,7 @@ export const TodoContainer = () => {
       <TodoHead />
       <TodoForm addTodo={addTodo} />
       <TodoList
-        todos={todos}
-        setTodos={setTodos}
         removeTodo={removeTodo}
-        toggleTodo={toggleTodo}
         currentSort={currentSort}
         setCurrentSort={setCurrentSort}
         clearCompleted={clearCompleted}

@@ -8,7 +8,7 @@ const initializeAuth = async () => {
 const register = async (name, email, password) => {
   const { data } = await axiosInstance.post("/auth/register", {
     name,
-    email,
+    email, 
     password,
   });
   return data;

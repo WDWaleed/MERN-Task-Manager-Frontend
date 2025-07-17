@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/auth-store";
 import toast from "react-hot-toast";
-import { useLogin } from "../hooks/useLogin";
+import { useLogin } from "../hooks/authHooks/useLogin";
 
 const Login = () => {
   const loginMutation = useLogin();

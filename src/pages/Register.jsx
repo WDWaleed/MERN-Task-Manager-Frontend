@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/auth-store";
-import { useRegister } from "../hooks/useRegister";
+import { useRegister } from "../hooks/authHooks/useRegister";
 
 const Register = () => {
   const registerMutation = useRegister();

@@ -2,10 +2,10 @@ import React from "react";
 
 const TodoFooter = ({ currentSort, setCurrentSort, todos, clearCompleted }) => {
   // Calculate the number of active items
-  const activeItemsCount = todos.filter((todo) => !todo.completed).length;
+  const activeItemsCount = todos?.filter((todo) => !todo.completed).length;
 
   return (
-    <div className="flex justify-between rounded-md bg-dark-very-dark-desaturated-blue px-5 py-4 text-[12px] text-dark-dark-grayish-blue">
+    <div className="bg-dark-very-dark-desaturated-blue text-dark-dark-grayish-blue flex justify-between rounded-md px-5 py-4 text-[12px]">
       <p>{activeItemsCount} items left</p>
       <div id="buttons-container" className="flex gap-4">
         <button
@@ -28,7 +28,7 @@ const TodoFooter = ({ currentSort, setCurrentSort, todos, clearCompleted }) => {
         </button>
       </div>
       <button
-        className={`transition-colors duration-300 hover:text-dark-light-grayish-blue-hover`}
+        className={`hover:text-dark-light-grayish-blue-hover transition-colors duration-300`}
         onClick={clearCompleted}
       >
         Clear Completed
