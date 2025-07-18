@@ -1,37 +1,34 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { createTask } from "../../api/tasksApi";
+import { deleteTask } from "../../api/tasksApi";
 import { useTasksStore } from "../../store/tasks-store";
 
-export const useCreateTask = () => {
+export const useDeleteTask = () => {
   const queryClient = useQueryClient();
   const setTasks = useTasksStore((state) => state.setTasks);
 
   return useMutation({
-    mutationFn: (taskName) => createTask(taskName),
+    mutationFn: (id) => deleteTask(id),
     onSuccess: () => {
-      toast.success("Task added!");
+      toast.success("Task deleted!");
     },
-    onMutate: async (name) => {
-      //This name is the same as taskName, just different name
-
-      await queryClient.cancelQueries({ queryKey: ["tasks"] }); // Preventing a GET request for tasks. We'll do this onSuccess
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey: ["tasks"] });
 
       const { tasks } = queryClient.getQueryData(["tasks"]);
       console.log(tasks);
 
-      // setTasks([...tasks, { id: Date.now(), name }]);
       queryClient.setQueryData(["tasks"], (prev) => {
         if (prev?.tasks) {
           return {
             ...prev,
-            tasks: [{ id: Date.now(), name }, ...prev.tasks],
+            tasks: prev.tasks.filter((task) => task._id != id),
           };
         }
       });
       return { tasks };
     },
-    onError: (error, newTask, context) => {
+    onError: (error, id, context) => {
       queryClient.setQueryData(["tasks"], context.tasks);
       toast.error(error?.message || "Failed to add task");
     },

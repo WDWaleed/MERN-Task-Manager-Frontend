@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "../styles/TodoItem.css";
+import { useDeleteTask } from "../hooks/taskHooks/useDeleteTask";
 
-export const TodoItem = ({
-  id,
-  taskText,
-  completed,
-  toggleTodo,
-  removeTodo,
-}) => {
+export const TodoItem = ({ id, taskText, completed, toggleTodo }) => {
   const [xVisible, setXVisible] = useState(false);
+
+  const deleteMutation = useDeleteTask();
+
+  const deleteTask = async (id) => {
+    deleteMutation.mutate(id);
+  };
 
   return (
     <div
@@ -34,7 +35,7 @@ export const TodoItem = ({
       </p>
       <span
         className={`mt-1 ml-auto cursor-pointer transition-opacity duration-300 ${xVisible ? "opacity-100" : "opacity-0"}`}
-        onClick={removeTodo}
+        onClick={() => deleteTask(id)}
       >
         <img src="/icon-cross.svg" alt="X" />
       </span>

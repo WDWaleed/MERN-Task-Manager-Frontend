@@ -10,4 +10,8 @@ const createTask = async (name) => {
   await axiosInstance.post("/tasks", { name });
 };
 
-export { getTasks, createTask };
+const deleteTask = async (id) => {
+  await axiosInstance.delete(`/tasks/${id}`);
+};
+
+export { getTasks, createTask, deleteTask };

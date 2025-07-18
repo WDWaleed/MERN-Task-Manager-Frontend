@@ -35,7 +35,6 @@ export const TodoList = () => {
                 // toggleTodo={toggleTodo}
                 // todos={todos}
                 // setTodos={setTodos}
-                // removeTodo={() => removeTodo(todo._id)}
               />
             </li>
           ))}
