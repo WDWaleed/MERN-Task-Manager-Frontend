@@ -3,7 +3,7 @@ import "../styles/TodoItem.css";
 
 export const TodoItem = ({
   id,
-  todoText,
+  taskText,
   completed,
   toggleTodo,
   removeTodo,
@@ -12,21 +12,10 @@ export const TodoItem = ({
 
   return (
     <div
-      className="flex gap-4 border-b border-dark-very-dark-grayish-blue-2 px-5 py-4 text-[18px] text-dark-light-grayish-blue"
+      className="border-dark-very-dark-grayish-blue-2 text-dark-light-grayish-blue flex gap-4 border-b px-5 py-4 text-[18px]"
       onMouseEnter={() => setXVisible(true)}
       onMouseLeave={() => setXVisible(false)}
     >
-      {/* <span
-        className={`checkmark flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 ${
-          completed
-            ? "border-none bg-check-background"
-            : "border-dark-very-dark-grayish-blue-2"
-        }`}
-        onClick={() => toggleTodo(id)}
-      >
-        {completed ? <img src="/icon-check.svg" alt="Tick" /> : ""}
-      </span> */}
-
       <span
         className={`checkmark flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 ${
           completed
@@ -41,10 +30,10 @@ export const TodoItem = ({
       <p
         className={` ${completed ? "text-dark-very-dark-grayish-blue line-through" : ""}`}
       >
-        {todoText}
+        {taskText}
       </p>
       <span
-        className={`ml-auto mt-1 cursor-pointer transition-opacity duration-300 ${xVisible ? "opacity-100" : "opacity-0"}`}
+        className={`mt-1 ml-auto cursor-pointer transition-opacity duration-300 ${xVisible ? "opacity-100" : "opacity-0"}`}
         onClick={removeTodo}
       >
         <img src="/icon-cross.svg" alt="X" />

@@ -4,27 +4,17 @@ import TodoFooter from "./TodoFooter";
 import { useTasksStore } from "../store/tasks-store";
 import { useGetTasks } from "../hooks/taskHooks/useGetTasks";
 
-export const TodoList = ({
-  removeTodo,
-  toggleTodo,
-  currentSort,
-  setCurrentSort,
-  clearCompleted,
-}) => {
-  const tasks = useTasksStore((state) => state.tasks);
+export const TodoList = () => {
+  const currentSort = useTasksStore((state) => state.currentSort);
   const { data, isLoading } = useGetTasks();
-  const [todos, setTodos] = React.useState([]);
-
-  useEffect(() => {
-    setTodos(tasks);
-  }, [tasks]);
 
   // Filter todos based on currentSort value
-  const filteredTodos = todos?.filter((todo) => {
+  // Maybe use useMemor for this:
+  const filteredTasks = data?.tasks?.filter((task) => {
     if (currentSort === "Active") {
-      return !todo.completed;
+      return !task.completed;
     } else if (currentSort === "Completed") {
-      return todo.completed;
+      return task.completed;
     }
     // Default case for "All"
     return true;
@@ -36,28 +26,23 @@ export const TodoList = ({
         "Loading tasks..."
       ) : (
         <ul>
-          {filteredTodos?.map((todo) => (
-            <li key={todo._id}>
+          {filteredTasks?.map((task) => (
+            <li key={task._id}>
               <TodoItem
-                todoText={todo.name}
-                id={todo._id}
-                completed={todo.completed}
-                toggleTodo={toggleTodo}
-                todos={todos}
-                setTodos={setTodos}
-                removeTodo={() => removeTodo(todo._id)}
+                taskText={task.name}
+                id={task._id}
+                completed={task.completed}
+                // toggleTodo={toggleTodo}
+                // todos={todos}
+                // setTodos={setTodos}
+                // removeTodo={() => removeTodo(todo._id)}
               />
             </li>
           ))}
         </ul>
       )}
 
-      <TodoFooter
-        currentSort={currentSort}
-        setCurrentSort={setCurrentSort}
-        todos={todos}
-        clearCompleted={clearCompleted}
-      />
+      <TodoFooter />
     </section>
   );
 };

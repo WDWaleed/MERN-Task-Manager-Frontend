@@ -6,8 +6,8 @@ const getTasks = async () => {
   return data;
 };
 
-const createTask = async (taskName) => {
-  await axiosInstance.post("/tasks", { taskName });
+const createTask = async (name) => {
+  await axiosInstance.post("/tasks", { name });
 };
 
 export { getTasks, createTask };

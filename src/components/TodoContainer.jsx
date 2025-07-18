@@ -11,26 +11,6 @@ import { getTasks } from "../api/tasksApi";
 export const TodoContainer = () => {
   const [currentSort, setCurrentSort] = useState("All");
 
-  const addTodo = async (newTodo) => {
-    try {
-      const response = await axios.post(
-        `${config.baseURL}/api/v1/tasks`,
-        {
-          name: newTodo,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      console.log(response.data.task);
-      getTasks();
-    } catch (error) {
-      console.error("Error adding todo:", error.message);
-    }
-  };
-
   const removeTodo = async (id) => {
     try {
       await axios.delete(`${config.baseURL}/api/v1/tasks/${id}`, {
@@ -97,7 +77,7 @@ export const TodoContainer = () => {
   return (
     <section className="mx-auto w-full max-w-[545px] -translate-y-275 p-8">
       <TodoHead />
-      <TodoForm addTodo={addTodo} />
+      <TodoForm />
       <TodoList
         removeTodo={removeTodo}
         currentSort={currentSort}
