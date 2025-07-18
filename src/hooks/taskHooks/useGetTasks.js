@@ -11,11 +11,6 @@ export const useGetTasks = () => {
     queryKey: ["tasks"],
     queryFn: getTasks,
     staleTime: 10000,
-    onSuccess: (data) => {
-      setTasks(data.tasks);
-      console.log(data);
-      toast.success("Tasks fetched");
-    },
     onError: (error) => {
       toast.error(error?.msg || "Error");
     },

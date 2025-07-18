@@ -3,14 +3,22 @@ import { TodoItem } from "./TodoItem";
 import TodoFooter from "./TodoFooter";
 import { useTasksStore } from "../store/tasks-store";
 import { useGetTasks } from "../hooks/taskHooks/useGetTasks";
+import toast from "react-hot-toast";
 
 export const TodoList = () => {
+  const { data, isLoading, isSuccess, isError } = useGetTasks();
   const currentSort = useTasksStore((state) => state.currentSort);
-  const { data, isLoading } = useGetTasks();
+  const tasks = useTasksStore((state) => state.tasks);
+  const setTasks = useTasksStore((state) => state.setTasks);
+
+  useEffect(() => {
+    setTasks(data?.tasks);
+    console.log(data);
+  }, [data]);
 
   // Filter todos based on currentSort value
-  // Maybe use useMemor for this:
-  const filteredTasks = data?.tasks?.filter((task) => {
+  // Maybe use useMemo for this:
+  const filteredTasks = tasks?.filter((task) => {
     if (currentSort === "Active") {
       return !task.completed;
     } else if (currentSort === "Completed") {
@@ -32,9 +40,6 @@ export const TodoList = () => {
                 taskText={task.name}
                 id={task._id}
                 completed={task.completed}
-                // toggleTodo={toggleTodo}
-                // todos={todos}
-                // setTodos={setTodos}
               />
             </li>
           ))}

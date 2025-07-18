@@ -1,8 +1,14 @@
 import React from "react";
+import { useTasksStore } from "../store/tasks-store";
 
-const TodoFooter = ({ currentSort, setCurrentSort, todos, clearCompleted }) => {
-  // Calculate the number of active items
-  const activeItemsCount = todos?.filter((todo) => !todo.completed).length;
+const TodoFooter = ({ clearCompleted }) => {
+  const tasks = useTasksStore((state) => state.tasks);
+  const currentSort = useTasksStore((state) => state.currentSort);
+  const setCurrentSort = useTasksStore((state) => state.setCurrentSort);
+
+  const activeItemsCount = (tasks || [])?.filter(
+    (task) => !task.completed,
+  ).length;
 
   return (
     <div className="bg-dark-very-dark-desaturated-blue text-dark-dark-grayish-blue flex justify-between rounded-md px-5 py-4 text-[12px]">

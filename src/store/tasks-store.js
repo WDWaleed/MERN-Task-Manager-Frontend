@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 export const useTasksStore = create((set) => ({
-  tasks: null,
+  tasks: [],
   setTasks: (tasks) => set({ tasks }),
-  currentSort: "Active",
+  currentSort: "All",
   setCurrentSort: (val) => set({ currentSort: val }),
 }));

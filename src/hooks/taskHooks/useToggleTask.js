@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { deleteTask } from "../../api/tasksApi";
+import { toggleTask } from "../../api/tasksApi";
 import { useTasksStore } from "../../store/tasks-store";
 
-export const useDeleteTask = () => {
+export const useToggleTask = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id) => deleteTask(id),
+    mutationFn: (id) => toggleTask(id),
     onSuccess: () => {
-      toast.success("Task deleted!");
+      toast.success("Task updated!");
     },
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
@@ -21,7 +21,7 @@ export const useDeleteTask = () => {
         if (prev?.tasks) {
           return {
             ...prev,
-            tasks: prev.tasks.filter((task) => task._id != id),
+            tasks: prev.tasks.map((task) => task._id == id && !task.completed),
           };
         }
       });
@@ -29,7 +29,7 @@ export const useDeleteTask = () => {
     },
     onError: (error, id, context) => {
       queryClient.setQueryData(["tasks"], context.tasks);
-      toast.error(error?.message || "Failed to delete task");
+      toast.error(error?.message || "Failed to toggle task");
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

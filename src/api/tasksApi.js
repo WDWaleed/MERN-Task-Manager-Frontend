@@ -1,3 +1,4 @@
+import { useTasksStore } from "../store/tasks-store";
 import { axiosInstance } from "../utils/axios";
 
 const getTasks = async () => {
@@ -11,7 +12,12 @@ const createTask = async (name) => {
 };
 
 const deleteTask = async (id) => {
+  console.log(id);
   await axiosInstance.delete(`/tasks/${id}`);
 };
 
-export { getTasks, createTask, deleteTask };
+const toggleTask = async (id) => {
+  await axiosInstance.patch(`/tasks/${id}/toggle`);
+};
+
+export { getTasks, createTask, deleteTask, toggleTask };
