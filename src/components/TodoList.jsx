@@ -6,7 +6,7 @@ import { useGetTasks } from "../hooks/taskHooks/useGetTasks";
 import toast from "react-hot-toast";
 
 export const TodoList = () => {
-  const { data, isLoading, isSuccess, isError } = useGetTasks();
+  const { data, isLoading, isSuccess, isError, error } = useGetTasks();
   const currentSort = useTasksStore((state) => state.currentSort);
   const tasks = useTasksStore((state) => state.tasks);
   const setTasks = useTasksStore((state) => state.setTasks);
@@ -15,6 +15,12 @@ export const TodoList = () => {
     setTasks(data?.tasks);
     console.log(data);
   }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.message || "Something went wrong");
+    }
+  }, [isError]);
 
   // Filter todos based on currentSort value
   // Maybe use useMemo for this:

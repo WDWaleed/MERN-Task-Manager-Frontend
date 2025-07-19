@@ -1,14 +1,20 @@
 import React from "react";
 import { useTasksStore } from "../store/tasks-store";
+import { useClearCompletedTasks } from "../hooks/taskHooks/useClearCompletedTasks";
 
-const TodoFooter = ({ clearCompleted }) => {
+const TodoFooter = () => {
   const tasks = useTasksStore((state) => state.tasks);
   const currentSort = useTasksStore((state) => state.currentSort);
   const setCurrentSort = useTasksStore((state) => state.setCurrentSort);
+  const clearCompletedTasks = useClearCompletedTasks();
 
   const activeItemsCount = (tasks || [])?.filter(
     (task) => !task.completed,
   ).length;
+
+  const clearCompleted = async () => {
+    if (activeItemsCount > 0) clearCompletedTasks.mutate();
+  };
 
   return (
     <div className="bg-dark-very-dark-desaturated-blue text-dark-dark-grayish-blue flex justify-between rounded-md px-5 py-4 text-[12px]">

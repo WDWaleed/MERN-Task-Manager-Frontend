@@ -20,4 +20,8 @@ const toggleTask = async (id) => {
   await axiosInstance.patch(`/tasks/${id}/toggle`);
 };
 
-export { getTasks, createTask, deleteTask, toggleTask };
+const clearCompletedTasks = async () => {
+  await axiosInstance.delete("/tasks/clear-completed");
+};
+
+export { getTasks, createTask, deleteTask, toggleTask, clearCompletedTasks };
