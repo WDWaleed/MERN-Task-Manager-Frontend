@@ -13,7 +13,7 @@ const TodoFooter = () => {
   ).length;
 
   const clearCompleted = async () => {
-    if (activeItemsCount > 0) clearCompletedTasks.mutate();
+    clearCompletedTasks.mutate();
   };
 
   return (

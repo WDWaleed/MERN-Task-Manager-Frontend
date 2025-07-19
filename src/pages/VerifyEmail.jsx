@@ -44,7 +44,7 @@ const VerifyEmail = () => {
   };
 
   useEffect(() => {
-    user?.isAccountVerified && navigate("/");
+    user?.isAccountVerified && navigate("/tasks");
   }, [user]);
 
   return (
