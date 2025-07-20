@@ -17,17 +17,29 @@ import { useAuthStore } from "./store/auth-store";
 import { initializeAuth } from "./api/authApi";
 import { useQuery } from "@tanstack/react-query";
 import VerifyEmail from "./pages/VerifyEmail";
+import { useUserStore } from "./store/user-store";
 
 function App() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
   const setUser = useAuthStore((state) => state.setUser);
+  const theme = useUserStore((state) => state.theme);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["initialAuth"],
     queryFn: initializeAuth,
     retry: false,
     refetchOnWindowFocus: true,
   });
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme == "light") {
+      document.documentElement.classList.add("light");
+    } else {
+      document.documentElement.classList.remove("light");
+    }
+  }, [theme]);
 
   useEffect(() => {
     if (data?.user) {

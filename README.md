@@ -7,4 +7,8 @@ Recently, (March 2025) I've learned the basics of MERN and now I'm applying that
 
 #### 18th July, 2025
 
-- Chore: onSuccess and onError of React Query are deprecated. Do something about them. Use onSettled if that isn't deprecated. Btw, these do exist for useMutation, just not for useQuery   
+- Chore: onSuccess and onError of React Query are deprecated. Do something about them. Use onSettled if that isn't deprecated. Btw, these do exist for useMutation, just not for useQuery
+
+#### 20th July, 2025
+
+- Added theme toggler but made the mistake of using localStorage. The theme's changing but there are issues. Need to use Zustand to make it predictable and as expected

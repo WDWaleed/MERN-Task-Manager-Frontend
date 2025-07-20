@@ -34,8 +34,8 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-dark-very-dark-blue flex min-h-screen items-center justify-center">
-      <div className="bg-dark-very-dark-desaturated-blue w-full max-w-md rounded-lg p-8 shadow-lg">
+    <div className="bg-main-bg flex min-h-screen items-center justify-center">
+      <div className="bg-component-bg w-full max-w-md rounded-lg p-8 shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-bold text-white">
           Login
         </h2>
@@ -51,7 +51,7 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
+              className="bg-input w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <div className="mb-6">
@@ -65,7 +65,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="bg-dark-very-dark-grayish-blue w-full rounded-sm p-2 text-white focus:outline-hidden"
+              className="bg-input w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
           <button

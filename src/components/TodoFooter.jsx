@@ -17,30 +17,30 @@ const TodoFooter = () => {
   };
 
   return (
-    <div className="bg-dark-very-dark-desaturated-blue text-dark-dark-grayish-blue flex justify-between rounded-md px-5 py-4 text-[12px]">
+    <div className="bg-component-bg text-secondary flex justify-between rounded-md px-5 py-4 text-[12px]">
       <p>{activeItemsCount} items left</p>
       <div id="buttons-container" className="flex gap-4">
         <button
-          className={`transition-colors duration-200 ${currentSort === "All" ? "text-bright-blue" : "hover:text-dark-light-grayish-blue-hover"} `}
+          className={`transition-colors duration-200 ${currentSort === "All" ? "text-bright-blue" : "hover:text-hover-text"} `}
           onClick={() => setCurrentSort("All")}
         >
           All
         </button>
         <button
-          className={`transition-colors duration-200 ${currentSort === "Active" ? "text-bright-blue" : "hover:text-dark-light-grayish-blue-hover"} `}
+          className={`transition-colors duration-200 ${currentSort === "Active" ? "text-bright-blue" : "hover:text-hover-text"} `}
           onClick={() => setCurrentSort("Active")}
         >
           Active
         </button>
         <button
-          className={`transition-colors duration-200 ${currentSort === "Completed" ? "text-bright-blue" : "hover:text-dark-light-grayish-blue-hover"} `}
+          className={`transition-colors duration-200 ${currentSort === "Completed" ? "text-bright-blue" : "hover:text-hover-text"} `}
           onClick={() => setCurrentSort("Completed")}
         >
           Completed
         </button>
       </div>
       <button
-        className={`hover:text-dark-light-grayish-blue-hover transition-colors duration-300`}
+        className={`hover:text-hover-text transition-colors duration-300`}
         onClick={clearCompleted}
       >
         Clear Completed

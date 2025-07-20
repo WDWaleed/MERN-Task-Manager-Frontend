@@ -3,6 +3,8 @@ layer(base);
 
 @import "tailwindcss";
 
+@custom-variant light (&:where(.light, .light *));
+
 @theme {
   --background-image-Mobile-dark: url("/bg-mobile-dark.jpg");
   --background-image-Mobile-light: url("/bg-mobile-light.jpg");
@@ -10,24 +12,31 @@ layer(base);
   --background-image-Desktop-light: url("/bg-desktop-light.jpg");
 
   --color-bright-blue: hsl(220, 98%, 61%);
-  --color-light-very-light-gray: hsl(0, 0%, 98%);
-  --color-light-very-light-grayish-blue: hsl(236, 33%, 92%);
-  --color-light-grayish-blue: hsl(233, 11%, 84%);
-  --color-light-dark-grayish-blue: hsl(236, 9%, 61%);
-  --color-light-very-dark-grayish-blue: hsl(235, 19%, 35%);
-  --color-dark-very-dark-blue: hsl(235, 21%, 11%);
-  --color-dark-very-dark-desaturated-blue: hsl(235, 24%, 19%);
-  --color-dark-light-grayish-blue: hsl(234, 39%, 85%);
-  --color-dark-light-grayish-blue-hover: hsl(236, 33%, 92%);
-  --color-dark-dark-grayish-blue: hsl(234, 11%, 52%);
-  --color-dark-very-dark-grayish-blue: hsl(233, 14%, 35%);
-  --color-dark-very-dark-grayish-blue-2: hsl(237, 14%, 26%);
+
+  /* Dark Theme By Default */
+  --color-primary: hsl(234, 39%, 85%);
+  --color-secondary: hsl(234, 11%, 52%);
+  --color-accent: hsl(237, 14%, 26%);
+  --color-main-bg: hsl(235, 21%, 11%);
+  --color-component-bg: hsl(235, 24%, 19%);
+  --color-hover-text: hsl(236, 33%, 92%);
+  --color-input: hsl(233, 14%, 35%);
 
   --spacing-275: 275px;
 
   --tracking-10px: 10px;
 
   --breakpoint-custom: 370px;
+}
+
+.light {
+  --color-primary: #333333;
+  --color-secondary: hsl(235, 19%, 35%);
+  --color-accent: hsl(236, 9%, 80%);
+  --color-main-bg: hsl(236, 33%, 92%);
+  --color-component-bg: hsl(0, 0%, 98%);
+  --color-hover-text: #333333;
+  --color-input: hsl(236, 9%, 75%);
 }
 
 /*
@@ -49,17 +58,14 @@ layer(base);
 }
 
 body {
-  @apply bg-dark-very-dark-blue;
+  background-color: var(--color-main-bg);
   font-family: "Josefin Sans", sans-serif;
 }
 
 .visually-hidden {
-  position: relative;
-  left: 9999px;
+  opacity: 0;
 }
 
 button {
   cursor: pointer;
 }
-
-

@@ -35,7 +35,7 @@ export const TodoList = () => {
   });
 
   return (
-    <section className="bg-dark-very-dark-desaturated-blue text-dark-light-grayish-blue mt-6 rounded-md drop-shadow-2xl">
+    <section className="bg-component-bg text-primary mt-6 rounded-md drop-shadow-2xl">
       {isLoading ? (
         "Loading tasks..."
       ) : (

@@ -48,9 +48,9 @@ const VerifyEmail = () => {
   }, [user]);
 
   return (
-    <div className="bg-dark-very-dark-blue flex min-h-screen items-center justify-center">
+    <div className="bg-main-bg flex min-h-screen items-center justify-center">
       <form
-        className="bg-dark-very-dark-desaturated-blue w-full max-w-md rounded-lg p-8 text-center shadow-lg"
+        className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg"
         onSubmit={handleSubmit}
       >
         <h1 className="text-center text-3xl font-bold text-white">

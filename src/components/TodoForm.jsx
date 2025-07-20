@@ -21,8 +21,8 @@ export const TodoForm = () => {
       <label htmlFor="todoInput" className="visually-hidden">
         Enter a new todo item
       </label>
-      <div className="bg-dark-very-dark-desaturated-blue flex items-center rounded-md px-5 drop-shadow-2xl">
-        <span className="border-dark-very-dark-grayish-blue-2 -mt-[3px] inline-block h-6 w-6 rounded-full border-2"></span>
+      <div className="bg-component-bg flex items-center rounded-md px-5 drop-shadow-2xl">
+        <span className="border-accent -mt-[3px] inline-block h-6 w-6 rounded-full border-2"></span>
         <input
           type="text"
           id="todoInput"
@@ -30,7 +30,7 @@ export const TodoForm = () => {
           placeholder="Create a new todo..."
           value={todoInput}
           onChange={handleChange}
-          className="bg-dark-very-dark-desaturated-blue text-dark-light-grayish-blue inline-block grow rounded-md p-4 text-[18px] focus:outline-hidden"
+          className="bg-component-bg text-primary inline-block grow rounded-md p-4 text-[18px] focus:outline-hidden"
         />
       </div>
     </form>

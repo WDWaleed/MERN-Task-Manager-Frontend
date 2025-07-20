@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/TodoItem.css";
 import { useDeleteTask } from "../hooks/taskHooks/useDeleteTask";
 import { useToggleTask } from "../hooks/taskHooks/useToggleTask";
 
@@ -16,21 +15,19 @@ export const TodoItem = ({ id, taskText, completed }) => {
   };
 
   return (
-    <div className="border-dark-very-dark-grayish-blue-2 text-dark-light-grayish-blue flex gap-4 border-b px-5 py-4 text-[18px]">
+    <div className="border-accent text-primary flex gap-4 border-b px-5 py-4 text-[18px]">
       <span
         className={`checkmark flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 ${
           completed
             ? "border-none bg-[linear-gradient(hsl(192,100%,67%),hsl(280,87%,65%))]"
-            : "border-dark-very-dark-grayish-blue-2"
+            : "border-accent"
         }`}
         onClick={() => toggleTask(id)}
       >
         {completed ? <img src="/icon-check.svg" alt="Tick" /> : ""}
       </span>
 
-      <p
-        className={` ${completed ? "text-dark-very-dark-grayish-blue line-through" : ""}`}
-      >
+      <p className={` ${completed ? "text-input line-through" : ""}`}>
         {taskText}
       </p>
       <span
