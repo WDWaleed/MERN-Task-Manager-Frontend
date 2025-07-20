@@ -1,6 +1,7 @@
 import { axiosInstance } from "../utils/axios";
 
 const initializeAuth = async () => {
+  console.log(import.meta.env.VITE_BACKEND_URL);
   const { data } = await axiosInstance.get("/auth/is-authenticated");
   return data;
 };
@@ -8,7 +9,7 @@ const initializeAuth = async () => {
 const register = async (name, email, password) => {
   const { data } = await axiosInstance.post("/auth/register", {
     name,
-    email, 
+    email,
     password,
   });
   return data;

@@ -5,9 +5,8 @@ const Home = () => {
   return (
     <>
       <div className="flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
-        <h1 className="max-w-2xl text-center text-3xl text-gray-300">
-          This is just a placeholder home page which will only have a NavBar for
-          now
+        <h1 className="mx-16 max-w-2xl text-center text-4xl font-bold text-gray-300">
+          MERN Task Manager
         </h1>
       </div>
     </>

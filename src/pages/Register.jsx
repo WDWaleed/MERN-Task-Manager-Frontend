@@ -41,7 +41,7 @@ const Register = () => {
 
   return (
     <div className="bg-main-bg flex min-h-screen items-center justify-center">
-      <div className="bg-component-bg w-full max-w-md rounded-lg p-8 shadow-lg">
+      <div className="bg-component-bg mx-8 w-full max-w-md rounded-lg p-8 shadow-lg">
         <h2 className="text-primary mb-6 text-center text-3xl font-bold">
           Register
         </h2>

@@ -5,7 +5,7 @@ export const TodoHead = () => {
   const theme = useUserStore((state) => state.theme);
   const setTheme = useUserStore((state) => state.setTheme);
   return (
-    <div className="mx-auto my-8 flex justify-between">
+    <div className="mx-auto mt-18 flex justify-between md:my-8">
       <h1 className="tracking-10px text-4xl font-bold text-gray-300">TODO</h1>
       <button
         onClick={() => {
