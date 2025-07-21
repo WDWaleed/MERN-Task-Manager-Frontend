@@ -16,6 +16,7 @@ const register = async (name, email, password) => {
 };
 
 const verifyEmail = async (otp) => {
+  console.log(otp);
   const { data } = await axiosInstance.post("/auth/verify-email", { otp });
   return data;
 };

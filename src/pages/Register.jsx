@@ -25,8 +25,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted!");
-    console.log("Form data:", formData);
     if (
       formData.name === "" ||
       !formData.email === "" ||
