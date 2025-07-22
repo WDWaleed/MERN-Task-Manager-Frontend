@@ -17,12 +17,14 @@ export const useToggleTask = () => {
       const { tasks } = queryClient.getQueryData(["tasks"]);
 
       queryClient.setQueryData(["tasks"], (prev) => {
-        if (prev?.tasks) {
-          return {
-            ...prev,
-            tasks: prev.tasks.map((task) => task._id == id && !task.completed),
-          };
-        }
+        if (!prev?.tasks) return prev;
+
+        return {
+          ...prev,
+          tasks: prev.tasks.map((task) =>
+            task._id === id ? { ...task, completed: !task.completed } : task,
+          ),
+        };
       });
       return { tasks };
     },
