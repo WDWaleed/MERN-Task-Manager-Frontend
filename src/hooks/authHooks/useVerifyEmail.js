@@ -12,7 +12,6 @@ export const useVerifyEmail = () => {
     mutationFn: (otp) => verifyEmail(otp),
     onSuccess: (data) => {
       setUser(data.user);
-      console.log(data.user);
       toast.success("Verification successful!");
       navigate("/tasks");
     },

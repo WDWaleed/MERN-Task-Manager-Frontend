@@ -18,7 +18,6 @@ export const useCreateTask = () => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] }); // Preventing a GET request for tasks. We'll do this onSuccess
 
       const { tasks } = queryClient.getQueryData(["tasks"]);
-      console.log(tasks);
 
       // setTasks([...tasks, { id: Date.now(), name }]);
       queryClient.setQueryData(["tasks"], (prev) => {

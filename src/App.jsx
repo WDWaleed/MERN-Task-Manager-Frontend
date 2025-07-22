@@ -51,10 +51,6 @@ function App() {
     }
   }, [data, setUser, setIsLoggedIn]);
 
-  useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
-
   const navigate = useNavigate();
   const location = useLocation();
 

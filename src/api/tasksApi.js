@@ -3,7 +3,6 @@ import { axiosInstance } from "../utils/axios";
 
 const getTasks = async () => {
   const { data } = await axiosInstance.get("/tasks");
-  console.log(data);
   return data;
 };
 
@@ -12,7 +11,6 @@ const createTask = async (name) => {
 };
 
 const deleteTask = async (id) => {
-  console.log(id);
   await axiosInstance.delete(`/tasks/${id}`);
 };
 

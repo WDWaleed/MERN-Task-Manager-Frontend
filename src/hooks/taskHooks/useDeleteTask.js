@@ -15,7 +15,6 @@ export const useDeleteTask = () => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
 
       const { tasks } = queryClient.getQueryData(["tasks"]);
-      console.log(tasks);
 
       queryClient.setQueryData(["tasks"], (prev) => {
         if (prev?.tasks) {

@@ -13,7 +13,6 @@ export const TodoList = () => {
 
   useEffect(() => {
     setTasks(data?.tasks);
-    console.log(data);
   }, [data]);
 
   useEffect(() => {
