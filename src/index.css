@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap")
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700;800&display=swap");
+
 layer(base);
 
 @import "tailwindcss";
@@ -32,7 +33,7 @@ layer(base);
 .light {
   --color-primary: #333333;
   --color-secondary: hsl(235, 19%, 35%);
-  --color-accent: hsl(236, 9%, 80%);
+  --color-accent: hsl(236, 9%, 65%);
   --color-main-bg: hsl(236, 33%, 92%);
   --color-component-bg: hsl(0, 0%, 98%);
   --color-hover-text: #333333;
