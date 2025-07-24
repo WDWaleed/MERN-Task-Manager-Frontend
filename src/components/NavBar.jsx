@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/authHooks/useLogout";
 import { useAuthStore } from "../store/auth-store";
+import "../styles/NavBar.css";
 
 const NavBar = () => {
   const logoutMutation = useLogout();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const user = useAuthStore((state) => state.user);
   const [optionsOpen, setOptionsOpen] = useState(false);
-  const dropdownRef = useRef(null); // <-- Ref for the dropdown
+  const dropdownRef = useRef(null);
+  const options = [{}];
 
   // Effect for handling outside clicks
   useEffect(() => {
@@ -43,27 +45,37 @@ const NavBar = () => {
                 className={`bg-primary text-main-bg flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xl font-medium ${optionsOpen ? "outline-1 outline-gray-400" : ""}`}
                 onClick={() => setOptionsOpen(!optionsOpen)}
               >
-                {user.name[0]}
+                {user?.name[0]}
               </button>
               <div
-                className={`absolute top-4 right-[110%] w-36 rounded-md bg-white shadow-md transition-all duration-300 ease-in-out ${
+                className={`absolute top-4 right-[110%] w-36 rounded-md bg-white shadow-md transition-all duration-200 ease-in-out ${
                   optionsOpen
                     ? "pointer-events-auto scale-100 opacity-100"
                     : "pointer-events-none scale-95 opacity-0"
                 }`}
               >
-                <ul className="space-y-2 text-black">
-                  <li className="rounded-md px-4 pt-4 transition-colors duration-100 ease-in-out hover:bg-gray-300">
+                <ul className="text-black" id="navbar-dropdown">
+                  <li className="rounded-md px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-gray-300">
                     <Link to="/tasks" className="flex items-center gap-2">
                       <img
                         src="/checklist.png"
                         alt="Tasks"
                         className="inline-block h-7 w-7"
                       />
-                      My Tasks
+                      Tasks
                     </Link>
                   </li>
-                  <li className="rounded-md px-4 pb-4 transition-colors duration-100 ease-in-out hover:bg-gray-300">
+                  <li className="rounded-md px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-gray-300">
+                    <Link to="/account" className="flex items-center gap-2">
+                      <img
+                        src="/checklist.png"
+                        alt="Account"
+                        className="inline-block h-7 w-7"
+                      />
+                      Account
+                    </Link>
+                  </li>
+                  <li className="rounded-md px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-gray-300">
                     <button
                       onClick={() => logoutMutation.mutate()}
                       className="flex items-center gap-2"

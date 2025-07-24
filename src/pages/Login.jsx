@@ -32,34 +32,36 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-main-bg flex min-h-screen items-center justify-center">
+    <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
       <div className="bg-component-bg mx-8 w-full max-w-md rounded-lg p-8 shadow-lg">
-        <h2 className="mb-6 text-center text-3xl font-bold text-white">
+        <h2 className="mb-8 text-center text-3xl font-bold text-white">
           Login
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="mb-2 block text-white">
+          <div className="mb-6">
+            <label htmlFor="email" className="hidden text-white">
               Email:
             </label>
             <input
               type="email"
               id="email"
               name="email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
               required
               className="bg-input w-full rounded-sm p-2 text-white focus:outline-hidden"
             />
           </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="mb-2 block text-white">
+          <div className="mb-8">
+            <label htmlFor="password" className="hidden text-white">
               Password:
             </label>
             <input
               type="password"
               id="password"
               name="password"
+              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
               required

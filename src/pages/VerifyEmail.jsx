@@ -48,14 +48,14 @@ const VerifyEmail = () => {
   }, [user]);
 
   return (
-    <div className="bg-main-bg flex min-h-screen items-center justify-center">
+    <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
       <form
         className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-center text-3xl font-bold text-white">
+        <h2 className="text-center text-3xl font-bold text-white">
           Verify Email
-        </h1>
+        </h2>
         <p className="text-gray-400">
           Enter the 6-digit code sent to your email
         </p>
@@ -80,7 +80,7 @@ const VerifyEmail = () => {
           type="submit"
           className="bg-bright-blue w-full cursor-pointer rounded-sm px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
         >
-          Verify Email
+          Verify
         </button>
       </form>
     </div>

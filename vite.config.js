@@ -10,7 +10,6 @@ export default defineConfig({
   server: {
     historyApiFallback: true,
   },
-  // base: "/MERN-Task-Manager/",
   // server: {
   //   port: 3001,
   // },

@@ -38,48 +38,51 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-main-bg flex min-h-screen items-center justify-center">
+    <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
       <div className="bg-component-bg mx-8 w-full max-w-md rounded-lg p-8 shadow-lg">
-        <h2 className="text-primary mb-6 text-center text-3xl font-bold">
+        <h2 className="text-primary mb-8 text-center text-3xl font-bold">
           Register
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="text-primary mb-2 block">
+          <div className="mb-6">
+            <label htmlFor="name" className="text-primary hidden">
               Name:
             </label>
             <input
               type="text"
               id="name"
               name="name"
+              placeholder="Name"
               value={formData.name}
               onChange={handleChange}
               required
               className="bg-input text-primary w-full rounded-sm p-2 focus:outline-hidden"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="text-primary mb-2 block">
+          <div className="mb-6">
+            <label htmlFor="email" className="text-primary hidden">
               Email:
             </label>
             <input
               type="email"
               id="email"
               name="email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
               required
               className="bg-input text-primary w-full rounded-sm p-2 focus:outline-hidden"
             />
           </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="text-primary mb-2 block">
+          <div className="mb-8">
+            <label htmlFor="password" className="text-primary hidden">
               Password:
             </label>
             <input
               type="password"
               id="password"
               name="password"
+              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
               required
@@ -95,7 +98,7 @@ const Register = () => {
         </form>
         <p className="text-primary mt-4 text-center">
           Already have an account?{" "}
-          <Link to="/login" className="text-bright-blue hover:underline">
+          <Link to="/tasks" className="text-bright-blue hover:underline">
             Login
           </Link>
         </p>

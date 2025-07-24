@@ -19,7 +19,7 @@ export const TodoItem = ({ id, taskText, completed }) => {
       <span
         className={`checkmark flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 ${
           completed
-            ? "border-none bg-[linear-gradient(hsl(192,100%,67%),hsl(280,87%,65%))]"
+            ? "from-gradfrom to-gradto  border-none bg-gradient-to-br"
             : "border-accent"
         }`}
         onClick={() => toggleTask(id)}

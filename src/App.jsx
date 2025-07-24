@@ -18,6 +18,9 @@ import { initializeAuth } from "./api/authApi";
 import { useQuery } from "@tanstack/react-query";
 import VerifyEmail from "./pages/VerifyEmail";
 import { useUserStore } from "./store/user-store";
+import Account from "./pages/Account";
+import NotFound from "./pages/NotFound";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -28,7 +31,6 @@ function App() {
     queryKey: ["initialAuth"],
     queryFn: initializeAuth,
     retry: false,
-    refetchOnWindowFocus: true,
   });
 
   useEffect(() => {
@@ -72,7 +74,7 @@ function App() {
   }
   return (
     <>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <NavBar />
       <main className="relative mx-auto mt-18 w-full max-w-[1440px]">
         <Routes>
@@ -95,7 +97,15 @@ function App() {
             path="/tasks"
             element={isLoggedIn ? <Tasks /> : <Navigate to="/login" replace />}
           />
+          <Route
+            path="/account"
+            element={
+              isLoggedIn ? <Account /> : <Navigate to="/not-found" replace />
+            }
+          />
           <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </main>
     </>
