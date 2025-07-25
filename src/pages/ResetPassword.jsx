@@ -1,11 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useSendResetOtp } from "../hooks/authHooks/useSendResetOtp";
+import { useResetPassword } from "../hooks/authHooks/useResetPassword";
 
 const ResetPassword = () => {
+  const { mutate: sendResetOtp, isSuccess } = useSendResetOtp();
+  const { mutate: resetPassword } = useResetPassword();
+
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   const [isEmailSent, setIsEmailSent] = useState(false);
-  const [otp, setOtp] = useState(0);
+  const [otp, setOtp] = useState("");
   const [isOtpSubmitted, setIsOtpSubmitted] = useState(false);
 
   const inputRef = useRef([]);
@@ -32,13 +37,35 @@ const ResetPassword = () => {
     });
   };
 
-  const handleEmailSubmit = async () => {};
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    sendResetOtp(email);
+  };
+
+  useEffect(() => {
+    isSuccess && setIsEmailSent(true);
+  }, [isSuccess]);
+
+  const handleOtpSubmit = (e) => {
+    e.preventDefault();
+    const resetOtp = inputRef.current.map((e) => e.value).join("");
+    if (resetOtp) {
+      setOtp(resetOtp);
+      setIsOtpSubmitted(true);
+    }
+  };
+
+  const handlePasswordSubmit = (e) => {
+    console.log(email, otp, newPassword);
+    e.preventDefault();
+    resetPassword({email, otp, newPassword});
+  };
   return (
     <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
       {!isEmailSent && (
         <form
           className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg"
-          onSubmit={handleEmailSubmit}
+          onSubmit={(e) => handleEmailSubmit(e)}
         >
           <h2 className="text-primary text-center text-3xl font-bold">
             Reset Password
@@ -65,7 +92,10 @@ const ResetPassword = () => {
 
       {/* OTP Input Form */}
       {!isOtpSubmitted && isEmailSent && (
-        <form className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg">
+        <form
+          onSubmit={(e) => handleOtpSubmit(e)}
+          className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg"
+        >
           <h2 className="text-primary text-center text-3xl font-bold">
             Reset Password
           </h2>
@@ -100,7 +130,10 @@ const ResetPassword = () => {
 
       {/* Enter New Password */}
       {isEmailSent && isOtpSubmitted && (
-        <form className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg">
+        <form
+          onSubmit={(e) => handlePasswordSubmit(e)}
+          className="bg-component-bg w-full max-w-md rounded-lg p-8 text-center shadow-lg"
+        >
           <h2 className="text-primary text-center text-3xl font-bold">
             New Password
           </h2>

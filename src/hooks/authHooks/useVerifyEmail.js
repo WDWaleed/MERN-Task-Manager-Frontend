@@ -16,7 +16,10 @@ export const useVerifyEmail = () => {
       navigate("/tasks");
     },
     onError: (error) => {
-      toast.error(error?.msg || "Verification failed. Please try again.");
+      toast.error(
+        error?.response?.data?.message ||
+          "Verification failed. Please try again.",
+      );
     },
   });
 };

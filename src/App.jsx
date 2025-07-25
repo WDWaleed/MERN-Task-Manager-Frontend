@@ -31,6 +31,7 @@ function App() {
     queryKey: ["initialAuth"],
     queryFn: initializeAuth,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -70,7 +71,7 @@ function App() {
     );
   }
   if (isError) {
-    console.log(error?.response?.data?.msg);
+    console.log(error?.response?.data?.message);
   }
   return (
     <>

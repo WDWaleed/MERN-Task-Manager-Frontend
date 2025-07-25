@@ -8,9 +8,9 @@ export const useDeleteTask = () => {
 
   return useMutation({
     mutationFn: (id) => deleteTask(id),
-    onSuccess: () => {
-      toast.success("Task deleted!");
-    },
+    // onSuccess: () => {
+    //   toast.success("Task deleted!");
+    // },
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
 
@@ -28,7 +28,11 @@ export const useDeleteTask = () => {
     },
     onError: (error, id, context) => {
       queryClient.setQueryData(["tasks"], context.tasks);
-      toast.error(error?.message || "Failed to delete task");
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Failed to delete task",
+      );
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

@@ -8,9 +8,9 @@ export const useToggleTask = () => {
 
   return useMutation({
     mutationFn: (id) => toggleTask(id),
-    onSuccess: () => {
-      toast.success("Task updated!");
-    },
+    // onSuccess: () => {
+    //   toast.success("Task updated!");
+    // },
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
 
@@ -30,7 +30,11 @@ export const useToggleTask = () => {
     },
     onError: (error, id, context) => {
       queryClient.setQueryData(["tasks"], context.tasks);
-      toast.error(error?.message || "Failed to toggle task");
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Failed to toggle task",
+      );
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

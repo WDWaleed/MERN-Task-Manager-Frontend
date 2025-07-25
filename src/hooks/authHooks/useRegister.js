@@ -16,7 +16,7 @@ export const useRegister = () => {
       navigate("/verify-email", { state: { authorized: true } });
     },
     onError: (error) => {
-      toast.error(error?.msg || "Registration failed. Please try again.");
+      toast.error(error?.message || "Registration failed. Please try again.");
     },
   });
 };

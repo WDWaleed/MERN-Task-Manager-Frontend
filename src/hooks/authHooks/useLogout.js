@@ -21,7 +21,7 @@ export const useLogout = () => {
       navigate("/", { replace: true });
     },
     onError: (error) => {
-      toast.error(error?.msg || "Operation failed. Please try again.");
+      toast.error(error?.message || "Operation failed. Please try again.");
     },
   });
 };

@@ -19,7 +19,9 @@ export const useLogin = () => {
       navigate("/tasks");
     },
     onError: (error) => {
-      toast.error(error?.msg || "Login failed. Please try again.");
+      toast.error(
+        error?.response?.data?.message || "Login failed. Please try again.",
+      );
     },
   });
 };

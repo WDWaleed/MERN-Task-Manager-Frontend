@@ -13,7 +13,8 @@ const TodoFooter = () => {
   ).length;
 
   const clearCompleted = async () => {
-    clearCompletedTasks.mutate();
+    if (tasks.length - activeItemsCount > 0) clearCompletedTasks.mutate();
+    // Only send a request if there are completed tasks to be cleared
   };
 
   return (

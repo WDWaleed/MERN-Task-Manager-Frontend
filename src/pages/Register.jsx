@@ -24,6 +24,7 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Registering...");
     e.preventDefault();
     if (
       formData.name === "" ||
@@ -91,9 +92,10 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
+            className="bg-bright-blue text-primary w-full rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={registerMutation.isPending}
           >
-            {registerMutation.isLoading ? "Registering..." : "Register"}
+            {registerMutation.isPending ? "Registering..." : "Register"}
           </button>
         </form>
         <p className="text-primary mt-4 text-center">

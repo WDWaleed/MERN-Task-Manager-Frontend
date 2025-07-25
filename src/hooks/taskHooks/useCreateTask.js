@@ -9,9 +9,9 @@ export const useCreateTask = () => {
 
   return useMutation({
     mutationFn: (taskName) => createTask(taskName),
-    onSuccess: () => {
-      toast.success("Task added!");
-    },
+    // onSuccess: () => {
+    //   toast.success("Task added!");
+    // },
     onMutate: async (name) => {
       //This name is the same as taskName, just different name
 
@@ -32,7 +32,11 @@ export const useCreateTask = () => {
     },
     onError: (error, newTask, context) => {
       queryClient.setQueryData(["tasks"], context.tasks);
-      toast.error(error?.message || "Failed to add task");
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Failed to add task",
+      );
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
