@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useAuthStore } from "../store/auth-store";
 import { useGetUserData } from "../hooks/userHooks/useGetUser";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Account = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetUserData();
@@ -16,7 +17,8 @@ const Account = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error?.response?.data?.message || "Something went wrong");
+      navigate("/login", replace);
     }
   }, [isError]);
 

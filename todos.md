@@ -10,7 +10,8 @@
 
 #### 24th July, 2025
 
-1. Refreshing on /account leads you to /not-found. My guess is that the user is navigated before initializeAuth finishes running. This leads to another big issue which is the following one
+1. (Done) Refreshing on /account leads you to /not-found. My guess is that the user is navigated before initializeAuth finishes running. This leads to another big issue which is the following one
+   - I've made it so that, if there's an error while fetching the user's data, it's probably going to be because the user's logged out or is unauthorized. This shows him a toast message and navigates to "/login". But if the user IS logged in, it only takes a few ms to fetch their data during which time, a loading state is shown as it should be.
 
 2. I think right now, the user is being logged in based on the initializeAuth Query's response, instead of the state in Zustand. What's the point of using an isLoggedIn state if I'm not using it as intended.
 

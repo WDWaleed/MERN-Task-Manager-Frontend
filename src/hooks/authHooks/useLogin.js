@@ -14,7 +14,6 @@ export const useLogin = () => {
     onSuccess: (data) => {
       setIsLoggedIn(true);
       setUser(data.user);
-
       toast.success("Logged In!");
       navigate("/tasks");
     },

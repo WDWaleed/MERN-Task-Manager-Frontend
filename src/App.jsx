@@ -98,12 +98,7 @@ function App() {
             path="/tasks"
             element={isLoggedIn ? <Tasks /> : <Navigate to="/login" replace />}
           />
-          <Route
-            path="/account"
-            element={
-              isLoggedIn ? <Account /> : <Navigate to="/not-found" replace />
-            }
-          />
+          <Route path="/account" element={<Account />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/not-found" element={<NotFound />} />

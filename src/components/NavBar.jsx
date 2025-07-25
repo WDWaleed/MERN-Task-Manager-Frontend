@@ -10,7 +10,6 @@ const NavBar = () => {
   const user = useAuthStore((state) => state.user);
   const [optionsOpen, setOptionsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const options = [{}];
 
   // Effect for handling outside clicks
   useEffect(() => {
