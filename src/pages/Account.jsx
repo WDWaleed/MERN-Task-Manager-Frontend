@@ -25,7 +25,7 @@ const Account = () => {
   return (
     <div className="bg-main-bg text-primary flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
       {isLoading ? (
-        <div>Loading...</div>
+        <Spinner />
       ) : (
         <div className="bg-component-bg mx-8 w-full max-w-md rounded-lg p-8 shadow-lg">
           <h2 className="mb-6 text-center text-3xl font-bold text-white">

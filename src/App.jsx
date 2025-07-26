@@ -21,6 +21,7 @@ import { useUserStore } from "./store/user-store";
 import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
 import ResetPassword from "./pages/ResetPassword";
+import Spinner from "./components/Spinner";
 
 function App() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -66,7 +67,7 @@ function App() {
   if (isLoading) {
     return (
       <div className="m-auto flex h-screen w-20 items-center justify-center text-2xl text-white">
-        Loading...
+        <Spinner />
       </div>
     );
   }

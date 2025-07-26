@@ -4,6 +4,7 @@ import TodoFooter from "./TodoFooter";
 import { useTasksStore } from "../store/tasks-store";
 import { useGetTasks } from "../hooks/taskHooks/useGetTasks";
 import toast from "react-hot-toast";
+import Spinner from "./Spinner";
 
 export const TodoList = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetTasks();
@@ -36,7 +37,9 @@ export const TodoList = () => {
   return (
     <section className="bg-component-bg text-primary mt-6 rounded-md drop-shadow-2xl">
       {isLoading ? (
-        "Loading tasks..."
+        <div className="mx-auto w-12">
+          <Spinner />
+        </div>
       ) : (
         <ul>
           {filteredTasks?.map((task) => (

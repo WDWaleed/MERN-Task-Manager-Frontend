@@ -23,8 +23,8 @@ The dates are for when I ADDED these to the list, not when I completed them. The
 
 3. (Done) Add icons in name, email, and password fields for a better UI.
 
-4. Add a spinner for loading state
+4. (Done) Add a spinner for loading state
 
-5. Add a spinner for loading state of TodoList, Account, and other components if necessary
+5. (Done) Add a spinner for loading state of TodoList, Account, and other components if necessary
 
 6. Create a better theme
