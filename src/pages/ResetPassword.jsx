@@ -2,10 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSendResetOtp } from "../hooks/authHooks/useSendResetOtp";
 import { useResetPassword } from "../hooks/authHooks/useResetPassword";
 import { MdEmail, MdLock } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const ResetPassword = () => {
-  const { mutate: sendResetOtp, isSuccess } = useSendResetOtp();
-  const { mutate: resetPassword } = useResetPassword();
+  const {
+    mutateAsync: sendResetOtp,
+    isSuccess,
+    isPending: sendingEmail,
+  } = useSendResetOtp();
+  const { mutateAsync: resetPassword, isPending: sendingPassword } =
+    useResetPassword();
 
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -38,9 +44,17 @@ const ResetPassword = () => {
     });
   };
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
-    sendResetOtp(email);
+
+    toast.promise(sendResetOtp(email), {
+      loading: "Sending OTP...",
+      success: (data) => data?.message || "OTP sent!",
+      error: (error) =>
+        error?.response?.data?.message ||
+        error?.message ||
+        "Failed to send OTP",
+    });
   };
 
   useEffect(() => {
@@ -57,9 +71,16 @@ const ResetPassword = () => {
   };
 
   const handlePasswordSubmit = (e) => {
-    console.log(email, otp, newPassword);
     e.preventDefault();
-    resetPassword({ email, otp, newPassword });
+
+    toast.promise(resetPassword({ email, otp, newPassword }), {
+      loading: "Processing...",
+      success: (data) => data?.message || "Password has been reset",
+      error: (error) =>
+        error?.response?.data?.message ||
+        error?.message ||
+        "Failed to reset password",
+    });
   };
   return (
     <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
@@ -92,6 +113,7 @@ const ResetPassword = () => {
           <button
             type="submit"
             className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
+            disabled={sendingEmail}
           >
             Submit
           </button>
@@ -162,6 +184,7 @@ const ResetPassword = () => {
           <button
             type="submit"
             className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
+            disabled={sendingPassword}
           >
             Submit
           </button>

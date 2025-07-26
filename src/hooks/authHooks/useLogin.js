@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/authApi";
 import { useAuthStore } from "../../store/auth-store";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
@@ -14,13 +13,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       setIsLoggedIn(true);
       setUser(data.user);
-      toast.success("Logged In!");
       navigate("/tasks");
-    },
-    onError: (error) => {
-      toast.error(
-        error?.response?.data?.message || "Login failed. Please try again.",
-      );
     },
   });
 };

@@ -12,11 +12,7 @@ export const useRegister = () => {
     mutationFn: ({ name, email, password }) => register(name, email, password),
     onSuccess: (data) => {
       setUser(data.user);
-      toast.success("Registration successful!");
       navigate("/verify-email", { state: { authorized: true } });
-    },
-    onError: (error) => {
-      toast.error(error?.message || "Registration failed. Please try again.");
     },
   });
 };

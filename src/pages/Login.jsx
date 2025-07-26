@@ -32,7 +32,14 @@ const Login = () => {
       return;
     }
 
-    loginMutation.mutate(formData);
+    const promise = loginMutation.mutateAsync(formData);
+
+    toast.promise(promise, {
+      loading: "Authenticating...",
+      success: "Logged In!",
+      error: (err) =>
+        err?.response?.data?.message || err?.message || "Unauthorized",
+    });
   };
 
   return (

@@ -41,7 +41,14 @@ const Register = () => {
       return;
     }
 
-    registerMutation.mutate(formData);
+    const promise = registerMutation.mutateAsync(formData);
+
+    toast.promise(promise, {
+      loading: "Registering...",
+      success: "Registration successful!",
+      error: (err) =>
+        err?.response?.data?.message || err?.message || "Registration failed",
+    });
   };
 
   return (

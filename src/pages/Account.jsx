@@ -3,6 +3,7 @@ import { useAuthStore } from "../store/auth-store";
 import { useGetUserData } from "../hooks/userHooks/useGetUser";
 import { replace, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 
 const Account = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetUserData();
