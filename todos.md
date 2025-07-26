@@ -12,7 +12,7 @@ The dates are for when I ADDED these to the list, not when I completed them. The
 
 2. (Done) Create handlers for verifying the reset OTP and then moving on to getting the new password and updating it in the db. Would need to reconfigure the controller for this
 
-3. Find out how to use toast.promise() with how my current async logic is written. Is it even possible?
+3. (Done. Needed to use mutateAsync instead of mutate) Find out how to use toast.promise() with how my current async logic is written. Is it even possible?
 
 #### 24th July, 2025
 

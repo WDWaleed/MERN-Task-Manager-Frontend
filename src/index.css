@@ -21,6 +21,8 @@
   --color-input: #333a5c;
   --color-gradfrom: hsl(192, 100%, 67%);
   --color-gradto: hsl(280, 87%, 65%);
+  --color-button: #eeeeee;
+  --color-otp: #333A5C;
   --spacing-275: 275px;
 
   --tracking-10px: 10px;
@@ -37,7 +39,8 @@
   --color-main-bg: hsl(236, 33%, 92%);
   --color-component-bg: hsl(0, 0%, 98%);
   --color-hover-text: #333333;
-  --color-input: hsl(236, 9%, 75%);
+  --color-input: #dddddd;
+  --color-otp: #dddddd
 }
 
 /*

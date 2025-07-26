@@ -97,7 +97,7 @@ const ResetPassword = () => {
             <label htmlFor="email" className="text-primary hidden">
               Email:
             </label>
-            <MdEmail size={24} className="text-white/50" />
+            <MdEmail size={24} className="text-primary" />
             <input
               type="email"
               id="email"
@@ -112,7 +112,7 @@ const ResetPassword = () => {
 
           <button
             type="submit"
-            className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
+            className="bg-bright-blue text-button w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
             disabled={sendingEmail}
           >
             Submit
@@ -129,6 +129,7 @@ const ResetPassword = () => {
           <h2 className="text-primary text-center text-3xl font-bold">
             Reset Password
           </h2>
+          <p className="text-primary">Enter the 6-digit OTP emailed to you</p>
           <div className="my-8 flex justify-between">
             {Array(6)
               .fill(0)
@@ -138,7 +139,7 @@ const ResetPassword = () => {
                   maxLength={1}
                   key={index}
                   required
-                  className="h-12 w-12 rounded-md bg-[#333A5C] text-center text-xl text-white"
+                  className="bg-otp text-primary h-12 w-12 rounded-md text-center text-xl"
                   ref={(e) => (inputRef.current[index] = e)}
                   onInput={(e) => handleInput(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
@@ -148,7 +149,7 @@ const ResetPassword = () => {
           </div>
           <button
             type="submit"
-            className="bg-bright-blue w-full cursor-pointer rounded-sm px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-600"
+            className="bg-bright-blue text-button w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
           >
             Submit
           </button>
@@ -168,7 +169,7 @@ const ResetPassword = () => {
             <label htmlFor="password" className="text-primary hidden">
               Password:
             </label>
-            <MdLock size={24} className="text-white/50" />
+            <MdLock size={24} className="text-primary" />
             <input
               type="password"
               id="password"
@@ -183,7 +184,7 @@ const ResetPassword = () => {
 
           <button
             type="submit"
-            className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
+            className="bg-bright-blue text-button w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
             disabled={sendingPassword}
           >
             Submit

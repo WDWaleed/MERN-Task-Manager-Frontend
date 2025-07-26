@@ -62,7 +62,7 @@ const Register = () => {
             <label htmlFor="name" className="text-primary hidden">
               Name:
             </label>
-            <MdAccountCircle size={24} className="text-white/50" />
+            <MdAccountCircle size={24} className="text-primary" />
             <input
               type="text"
               id="name"
@@ -71,14 +71,14 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full p-2 text-white focus:outline-hidden"
+              className="text-primary w-full p-2 focus:outline-hidden"
             />
           </div>
           <div className="bg-input mb-6 flex w-full items-center rounded-sm px-3">
             <label htmlFor="email" className="text-primary hidden">
               Email:
             </label>
-            <MdEmail size={24} className="text-white/50" />
+            <MdEmail size={24} className="text-primary" />
             <input
               type="email"
               id="email"
@@ -94,7 +94,7 @@ const Register = () => {
             <label htmlFor="password" className="text-primary hidden">
               Password:
             </label>{" "}
-            <MdLock size={24} className="text-white/50" />
+            <MdLock size={24} className="text-primary" />
             <input
               type="password"
               id="password"
@@ -108,7 +108,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="bg-bright-blue text-primary w-full rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-bright-blue text-button w-full rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={registerMutation.isPending}
           >
             {registerMutation.isPending ? "Registering..." : "Register"}
