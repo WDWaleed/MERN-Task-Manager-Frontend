@@ -14,6 +14,11 @@ const register = async (name, email, password) => {
   return data;
 };
 
+const sendVerificationOtp = async () => {
+  const { data } = await axiosInstance.post("/auth/send-verification-otp");
+  return data;
+};
+
 const verifyEmail = async (otp) => {
   const { data } = await axiosInstance.post("/auth/verify-email", { otp });
   return data;
@@ -45,6 +50,7 @@ const logout = async () => {
 export {
   initializeAuth,
   register,
+  sendVerificationOtp,
   verifyEmail,
   login,
   logout,

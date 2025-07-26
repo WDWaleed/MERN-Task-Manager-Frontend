@@ -4,7 +4,7 @@ The dates are for when I ADDED these to the list, not when I completed them. The
 
 #### 26th July, 2025
 
-1. Limit OTP requests to one every minute
+1. (Done. Doing it on the frontend using useState. Should probably handle this on the server) Limit OTP requests to one every minute
 
 #### 25th July, 2025
 

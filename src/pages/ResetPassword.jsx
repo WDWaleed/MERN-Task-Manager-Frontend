@@ -13,6 +13,8 @@ const ResetPassword = () => {
   const { mutateAsync: resetPassword, isPending: sendingPassword } =
     useResetPassword();
 
+  const [countdown, setCountdown] = useState(0);
+
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
@@ -82,6 +84,33 @@ const ResetPassword = () => {
         "Failed to reset password",
     });
   };
+
+  // Limiting OTP requests to one per minute
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [countdown]);
+
+  useEffect(() => {
+    setCountdown(0);
+  }, []);
+
+  const handleResendOtp = () => {
+    toast.promise(sendResetOtp(email), {
+      loading: "Sending OTP...",
+      success: "OTP Sent",
+      error: "Error while sending OTP",
+    });
+
+    setCountdown(60);
+  };
+
   return (
     <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
       {!isEmailSent && (
@@ -153,6 +182,21 @@ const ResetPassword = () => {
           >
             Submit
           </button>
+          <p className="text-primary mt-4">
+            Didn't receive it?
+            {countdown > 0 ? (
+              <span className="ml-1">Request a new one in {countdown}s</span>
+            ) : (
+              <button
+                onClick={handleResendOtp}
+                className="ml-1 cursor-pointer text-blue-400 hover:underline"
+                type="button"
+                disabled={countdown > 0}
+              >
+                Resend
+              </button>
+            )}
+          </p>
         </form>
       )}
 

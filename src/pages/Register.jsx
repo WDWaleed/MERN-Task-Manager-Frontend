@@ -8,7 +8,6 @@ import {
   MdAccountCircle,
   MdEmail,
   MdLock,
-  MdOutlineAccountCircle,
 } from "react-icons/md";
 
 const Register = () => {
