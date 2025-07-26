@@ -11,8 +11,6 @@
 
   --color-bright-blue: hsl(220, 98%, 61%);
 
-  
-
   /* Dark Theme By Default */
   --color-primary: hsl(234, 39%, 85%);
   --color-secondary: hsl(234, 11%, 52%);
@@ -71,4 +69,10 @@ body {
 
 button {
   cursor: pointer;
+}
+
+iconify-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
 }

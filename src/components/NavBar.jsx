@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/authHooks/useLogout";
 import { useAuthStore } from "../store/auth-store";
-import "../styles/NavBar.css";
+import "iconify-icon";
+import { MdAccountCircle, MdManageAccounts } from "react-icons/md";
+import { FaTasks } from "react-icons/fa";
+import { IoMdLogOut } from "react-icons/io";
 
 const NavBar = () => {
   const logoutMutation = useLogout();
@@ -41,10 +44,11 @@ const NavBar = () => {
           {isLoggedIn ? (
             <div className="relative" ref={dropdownRef}>
               <button
-                className={`bg-primary text-main-bg flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xl font-medium ${optionsOpen ? "outline-1 outline-gray-400" : ""}`}
+                className={`flex cursor-pointer items-center justify-center rounded-full ${optionsOpen ? "outline-2 outline-gray-400" : ""}`}
                 onClick={() => setOptionsOpen(!optionsOpen)}
               >
-                {user?.name[0]}
+                {/* {user?.name[0]} */}
+                <MdAccountCircle size={32} className="text-primary" />
               </button>
               <div
                 className={`absolute top-4 right-[110%] w-36 rounded-md bg-white shadow-md transition-all duration-200 ease-in-out ${
@@ -54,37 +58,25 @@ const NavBar = () => {
                 }`}
               >
                 <ul className="text-black" id="navbar-dropdown">
-                  <li className="rounded-md px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-gray-300">
+                  <li className="rounded-md px-4 py-1 transition-colors duration-100 ease-in-out hover:bg-gray-300">
                     <Link to="/tasks" className="flex items-center gap-2">
-                      <img
-                        src="/checklist.png"
-                        alt="Tasks"
-                        className="inline-block h-7 w-7"
-                      />
-                      Tasks
+                      <FaTasks size={20} />
+                      <span className="pt-1">Tasks</span>
                     </Link>
                   </li>
-                  <li className="rounded-md px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-gray-300">
+                  <li className="rounded-md px-4 py-1 transition-colors duration-100 ease-in-out hover:bg-gray-300">
                     <Link to="/account" className="flex items-center gap-2">
-                      <img
-                        src="/checklist.png"
-                        alt="Account"
-                        className="inline-block h-7 w-7"
-                      />
-                      Account
+                      <MdManageAccounts size={22} />
+                      <span className="pt-1">Account</span>
                     </Link>
                   </li>
-                  <li className="rounded-md px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-gray-300">
+                  <li className="rounded-md px-4 py-1 transition-colors duration-100 ease-in-out hover:bg-gray-300">
                     <button
                       onClick={() => logoutMutation.mutate()}
                       className="flex items-center gap-2"
                     >
-                      <img
-                        src="/logout.png"
-                        alt="Logout"
-                        className="inline-block h-7 w-7 scale-x-[-1]"
-                      />
-                      Logout
+                      <IoMdLogOut size={22} />
+                      <span className="pt-1">Logout</span>
                     </button>
                   </li>
                 </ul>

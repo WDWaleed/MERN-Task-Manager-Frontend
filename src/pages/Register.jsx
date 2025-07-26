@@ -4,6 +4,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/auth-store";
 import { useRegister } from "../hooks/authHooks/useRegister";
+import {
+  MdAccountCircle,
+  MdEmail,
+  MdLock,
+  MdOutlineAccountCircle,
+} from "react-icons/md";
 
 const Register = () => {
   const registerMutation = useRegister();
@@ -45,10 +51,11 @@ const Register = () => {
           Register
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-6">
+          <div className="bg-input mb-6 flex w-full items-center rounded-sm px-3">
             <label htmlFor="name" className="text-primary hidden">
               Name:
             </label>
+            <MdAccountCircle size={24} className="text-white/50" />
             <input
               type="text"
               id="name"
@@ -57,13 +64,14 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="bg-input text-primary w-full rounded-sm p-2 focus:outline-hidden"
+              className="w-full p-2 text-white focus:outline-hidden"
             />
           </div>
-          <div className="mb-6">
+          <div className="bg-input mb-6 flex w-full items-center rounded-sm px-3">
             <label htmlFor="email" className="text-primary hidden">
               Email:
             </label>
+            <MdEmail size={24} className="text-white/50" />
             <input
               type="email"
               id="email"
@@ -75,10 +83,11 @@ const Register = () => {
               className="bg-input text-primary w-full rounded-sm p-2 focus:outline-hidden"
             />
           </div>
-          <div className="mb-8">
+          <div className="bg-input mb-6 flex w-full items-center rounded-sm px-3">
             <label htmlFor="password" className="text-primary hidden">
               Password:
-            </label>
+            </label>{" "}
+            <MdLock size={24} className="text-white/50" />
             <input
               type="password"
               id="password"

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSendResetOtp } from "../hooks/authHooks/useSendResetOtp";
 import { useResetPassword } from "../hooks/authHooks/useResetPassword";
+import { MdEmail, MdLock } from "react-icons/md";
 
 const ResetPassword = () => {
   const { mutate: sendResetOtp, isSuccess } = useSendResetOtp();
@@ -58,7 +59,7 @@ const ResetPassword = () => {
   const handlePasswordSubmit = (e) => {
     console.log(email, otp, newPassword);
     e.preventDefault();
-    resetPassword({email, otp, newPassword});
+    resetPassword({ email, otp, newPassword });
   };
   return (
     <div className="bg-main-bg flex min-h-[calc(100vh-4.5rem)] items-center justify-center">
@@ -71,16 +72,23 @@ const ResetPassword = () => {
             Reset Password
           </h2>
           <p className="text-primary">Enter your registered email</p>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="bg-input text-primary mt-8 mb-8 w-full rounded-sm p-2 focus:outline-hidden"
-          />
+          <div className="bg-input my-6 flex w-full items-center rounded-sm px-3">
+            <label htmlFor="email" className="text-primary hidden">
+              Email:
+            </label>
+            <MdEmail size={24} className="text-white/50" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="bg-input text-primary w-full rounded-sm p-2 focus:outline-hidden"
+            />
+          </div>
+
           <button
             type="submit"
             className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
@@ -99,9 +107,6 @@ const ResetPassword = () => {
           <h2 className="text-primary text-center text-3xl font-bold">
             Reset Password
           </h2>
-          <p className="text-primary">
-            Enter the 6-digit code sent to your email
-          </p>
           <div className="my-8 flex justify-between">
             {Array(6)
               .fill(0)
@@ -137,17 +142,23 @@ const ResetPassword = () => {
           <h2 className="text-primary text-center text-3xl font-bold">
             New Password
           </h2>
-          <p className="text-primary">Enter the new password</p>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-            className="bg-input text-primary mt-8 mb-8 w-full rounded-sm p-2 focus:outline-hidden"
-          />
+          <div className="bg-input my-6 flex w-full items-center rounded-sm px-3">
+            <label htmlFor="password" className="text-primary hidden">
+              Password:
+            </label>
+            <MdLock size={24} className="text-white/50" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+              className="bg-input text-primary w-full rounded-sm p-2 focus:outline-hidden"
+            />
+          </div>
+
           <button
             type="submit"
             className="bg-bright-blue text-primary w-full cursor-pointer rounded-sm px-4 py-2 transition-colors duration-200 hover:bg-blue-600"
