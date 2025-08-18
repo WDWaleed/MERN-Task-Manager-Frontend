@@ -1,14 +1,35 @@
+
 # MERN Task Manager
 
-This is a project I've been working on ever since I finished frontend web dev. This was the last frontend project I created before I moved on to learning MERN for full-stack web dev.
-Recently, (March 2025) I've learned the basics of MERN and now I'm applying that knowledge to turn this frontend project into a full-stack one. I've already added basic CRUD funtionality but there are still many things I plan to add.
+## Important Notes
+
+1. This project is currently an **MVP**. Additional features will be added as I learn new technologies, frameworks, libraries, etc (e.g., image upload for profile pictures).
+2. The **backend** is in a separate repo: [MERN Task Manager Backend](https://github.com/WDWaleed/MERN-Task-Manager-Backend/)
+3. The backend is hosted on **Render** (free tier). The site may take 20–30 seconds to start if inactive.
+
+## About the Project
+
+This project started as a frontend-only task manager, built while I was learning frontend development. After completing frontend basics, I began learning MERN (March 2025) and turned this into my first **full-stack MERN project**.
+
+### Current Features
+
+- **CRUD functionality** for tasks
+- **Theme toggler** with Zustand for state management
+- **React Query** for data fetching and mutations  
+- **Custom Auth Workflow:** Handling registration, login, password reset, OTP requests, etc
+
+### Planned Features
+
+- User profile pictures with **image upload** 
+
 
 ---
 
-#### 18th July, 2025
+## Development Notes (Changelog)
 
-- Chore: onSuccess and onError of React Query are deprecated. Do something about them. Use onSettled if that isn't deprecated. Btw, these do exist for useMutation, just not for useQuery
+- **18 July, 2025** – `onSuccess` and `onError` deprecated in React Query for `useQuery`. Considering `onSettled` if that works.  
+- **20 July, 2025** – Added theme toggler with `localStorage` but planning to switch to Zustand.  
 
-#### 20th July, 2025
+---
 
-- Added theme toggler but made the mistake of using localStorage. The theme's changing but there are issues. Need to use Zustand to make it predictable and as expected
+
